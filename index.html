@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>UFA ROLE PLAY | Официальный сайт</title>
+
+    <meta
+        name="description"
+        content="UFA ROLE PLAY — современный Role Play проект на смартфоне."
+    >
+
+    <!-- =========================
+         FONTS
+    ========================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #050505;
+            color: #ffffff;
+            font-family: "Inter", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           COLORS
+        ===================================================== */
+
+        :root {
+            --orange: #ff6a00;
+            --orange-light: #ff8a2a;
+            --orange-dark: #c94300;
+
+            --black: #050505;
+            --black-2: #080808;
+            --black-3: #0d0d0d;
+
+            --white: #ffffff;
+            --gray: #929292;
+
+            --border: rgba(255, 255, 255, 0.08);
+            --orange-border: rgba(255, 106, 0, 0.25);
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--orange);
+            border-radius: 20px;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            z-index: 9999;
+
+            padding: 22px 5%;
+
+            transition: .35s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(5, 5, 5, .86);
+            backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, .06);
+
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        /* LOGO TEXT */
+
+        .brand {
+            font-family: "Montserrat", sans-serif;
+
+            font-size: 20px;
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            z-index: 10001;
+        }
+
+        .brand span {
+            color: var(--orange);
+        }
+
+
+        /* =====================================================
+           BURGER
+        ===================================================== */
+
+        .burger {
+            width: 48px;
+            height: 48px;
+
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 10px;
+
+            background: rgba(15, 15, 15, .85);
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 5px;
+
+            cursor: pointer;
+
+            transition: .3s ease;
+
+            position: relative;
+            z-index: 10001;
+        }
+
+        .burger:hover {
+            border-color: var(--orange);
+
+            background:
+                rgba(255, 106, 0, .1);
+        }
+
+        .burger span {
+            width: 20px;
+            height: 2px;
+
+            background: white;
+
+            border-radius: 5px;
+
+            transition: .3s ease;
+        }
+
+        .burger.active span:nth-child(1) {
+            transform:
+                translateY(7px)
+                rotate(45deg);
+        }
+
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.active span:nth-child(3) {
+            transform:
+                translateY(-7px)
+                rotate(-45deg);
+        }
+
+
+        /* =====================================================
+           SIDE MENU
+        ===================================================== */
+
+        .menu-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0, 0, 0, .65);
+
+            backdrop-filter: blur(5px);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: .35s ease;
+
+            z-index: 9997;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-menu {
+            position: fixed;
+
+            top: 0;
+            right: 0;
+
+            width: min(420px, 88vw);
+            height: 100vh;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #101010,
+                    #050505
+                );
+
+            border-left:
+                1px solid rgba(255, 106, 0, .18);
+
+            z-index: 9998;
+
+            transform: translateX(100%);
+
+            transition:
+                transform .45s
+                cubic-bezier(.77,0,.18,1);
+
+            padding: 120px 35px 35px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .side-menu.active {
+            transform: translateX(0);
+        }
+
+        .menu-title {
+            color: var(--orange);
+
+            font-size: 11px;
+            font-weight: 900;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 35px;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+        .menu-link {
+            padding: 18px 17px;
+
+            border-radius: 10px;
+
+            font-family: "Montserrat", sans-serif;
+
+            font-size: 18px;
+            font-weight: 800;
+
+            transition: .25s ease;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-link::after {
+            content: "→";
+
+            color: var(--orange);
+
+            transform:
+                translateX(-5px);
+
+            transition: .25s ease;
+        }
+
+        .menu-link:hover {
+            background:
+                rgba(255, 106, 0, .08);
+
+            color: var(--orange);
+        }
+
+        .menu-link:hover::after {
+            transform:
+                translateX(0);
+        }
+
+        .menu-socials {
+            margin-top: auto;
+
+            padding-top: 25px;
+
+            border-top:
+                1px solid rgba(255,255,255,.07);
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 10px;
+        }
+
+        .social-menu {
+            min-height: 54px;
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 9px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            transition: .3s ease;
+        }
+
+        .social-menu:hover {
+            background:
+                var(--orange);
+
+            border-color:
+                var(--orange);
+
+            color: #fff;
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: 100vh;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+
+            background:
+                #050505;
+        }
+
+        .hero-image {
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            z-index: 0;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 1;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(3,3,3,.98) 0%,
+                    rgba(3,3,3,.88) 30%,
+                    rgba(3,3,3,.48) 65%,
+                    rgba(3,3,3,.82) 100%
+                );
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 220px;
+
+            z-index: 2;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    #050505
+                );
+        }
+
+        .hero-content {
+            position: relative;
+
+            z-index: 3;
+
+            width: 100%;
+
+            max-width: 1400px;
+
+            margin: auto;
+
+            padding:
+                150px 5%
+                100px;
+        }
+
+        .hero-small {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding:
+                9px 13px;
+
+            border:
+                1px solid
+                rgba(255, 106, 0, .35);
+
+            border-radius: 6px;
+
+            background:
+                rgba(255, 106, 0, .07);
+
+            color:
+                var(--orange-light);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-transform:
+                uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        .hero-small::before {
+            content: "";
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background:
+                var(--orange);
+
+            box-shadow:
+                0 0 15px
+                var(--orange);
+        }
+
+        .hero-title {
+            max-width: 920px;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                clamp(42px, 7vw, 88px);
+
+            line-height:
+                .98;
+
+            font-weight: 900;
+
+            letter-spacing:
+                -3px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .hero-title .orange {
+            color:
+                var(--orange);
+
+            text-shadow:
+                0 0 45px
+                rgba(255, 106, 0, .18);
+        }
+
+        .hero-title .black-word {
+            color: white;
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            margin-top: 28px;
+
+            color:
+                rgba(255,255,255,.64);
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            margin-top: 35px;
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .button {
+            min-height: 55px;
+
+            padding:
+                0 25px;
+
+            border-radius: 8px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            text-transform:
+                uppercase;
+
+            transition: .3s ease;
+
+            cursor: pointer;
+        }
+
+        .button-orange {
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff7b18,
+                    #d84700
+                );
+
+            box-shadow:
+                0 12px 35px
+                rgba(255, 90, 0, .2);
+        }
+
+        .button-orange:hover {
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 18px 45px
+                rgba(255, 90, 0, .3);
+        }
+
+        .button-dark {
+            border:
+                1px solid
+                rgba(255,255,255,.13);
+
+            background:
+                rgba(255,255,255,.04);
+
+            backdrop-filter:
+                blur(10px);
+        }
+
+        .button-dark:hover {
+            border-color:
+                var(--orange);
+
+            color:
+                var(--orange);
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        /* =====================================================
+           MAIN PHOTO
+        ===================================================== */
+
+        .main-photo-section {
+            position: relative;
+
+            margin-top: -45px;
+
+            z-index: 10;
+
+            padding:
+                0 5% 100px;
+        }
+
+        .main-photo {
+            max-width: 1400px;
+
+            margin: auto;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            border:
+                1px solid
+                rgba(255,106,0,.22);
+
+            box-shadow:
+                0 30px 100px
+                rgba(0,0,0,.6);
+        }
+
+        .main-photo img {
+            width: 100%;
+
+            height:
+                min(650px, 60vw);
+
+            min-height: 300px;
+
+            object-fit: cover;
+        }
+
+        .main-photo::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    0deg,
+                    rgba(0,0,0,.55),
+                    transparent 50%
+                );
+
+            pointer-events:
+                none;
+        }
+
+        .photo-caption {
+            position: absolute;
+
+            left: 30px;
+            bottom: 25px;
+
+            z-index: 2;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size: 13px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .photo-caption span {
+            color:
+                var(--orange);
+        }
+
+
+        /* =====================================================
+           GENERAL SECTIONS
+        ===================================================== */
+
+        section {
+            padding:
+                110px 5%;
+        }
+
+        .container {
+            max-width:
+                1400px;
+
+            margin:
+                auto;
+        }
+
+        .section-label {
+            color:
+                var(--orange);
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                3px;
+
+            text-transform:
+                uppercase;
+
+            margin-bottom:
+                13px;
+        }
+
+        .section-title {
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                clamp(34px, 5vw, 62px);
+
+            line-height:
+                1;
+
+            font-weight:
+                900;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                -2px;
+        }
+
+        .section-title span {
+            color:
+                var(--orange);
+        }
+
+        .section-description {
+            max-width:
+                720px;
+
+            margin-top:
+                18px;
+
+            color:
+                rgba(255,255,255,.52);
+
+            line-height:
+                1.7;
+
+            font-size:
+                15px;
+        }
+
+
+        /* =====================================================
+           WHY PLAY
+        ===================================================== */
+
+        .why {
+            background:
+                radial-gradient(
+                    circle at 80% 30%,
+                    rgba(255,106,0,.08),
+                    transparent 30%
+                ),
+                #050505;
+        }
+
+        .systems-grid {
+            margin-top:
+                55px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                18px;
+        }
+
+        .system-card {
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            background:
+                #0b0b0b;
+
+            border:
+                1px solid
+                rgba(255,255,255,.07);
+
+            border-radius:
+                14px;
+
+            transition:
+                .35s ease;
+        }
+
+        .system-card:hover {
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(255,106,0,.4);
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.4);
+        }
+
+        .system-image {
+            height:
+                245px;
+
+            overflow:
+                hidden;
+        }
+
+        .system-image img {
+            width:
+                100%;
+
+            height:
+                100%;
+
+            object-fit:
+                cover;
+
+            transition:
+                .55s ease;
+        }
+
+        .system-card:hover
+        .system-image img {
+            transform:
+                scale(1.07);
+        }
+
+        .system-info {
+            padding:
+                24px;
+        }
+
+        .system-number {
+            color:
+                var(--orange);
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                2px;
+        }
+
+        .system-info h3 {
+            margin-top:
+                9px;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                20px;
+
+            font-weight:
+                900;
+
+            text-transform:
+                uppercase;
+        }
+
+        .system-info p {
+            margin-top:
+                10px;
+
+            color:
+                rgba(255,255,255,.47);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.65;
+        }
+
+
+        /* =====================================================
+           MORE SYSTEMS
+        ===================================================== */
+
+        .more-systems {
+            margin-top:
+                70px;
+
+            padding:
+                55px;
+
+            border:
+                1px solid
+                rgba(255,106,0,.15);
+
+            border-radius:
+                18px;
+
+            background:
+                linear-gradient(
+                    130deg,
+                    rgba(255,106,0,.08),
+                    rgba(255,255,255,.02)
+                );
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+        }
+
+        .more-systems::after {
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                300px;
+
+            height:
+                300px;
+
+            right:
+                -120px;
+
+            top:
+                -150px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(255,106,0,.12);
+
+            filter:
+                blur(70px);
+        }
+
+        .more-systems h3 {
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                clamp(28px, 4vw, 45px);
+
+            text-transform:
+                uppercase;
+        }
+
+        .more-systems h3 span {
+            color:
+                var(--orange);
+        }
+
+        .more-systems p {
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            max-width:
+                750px;
+
+            margin-top:
+                15px;
+
+            color:
+                rgba(255,255,255,.52);
+
+            line-height:
+                1.7;
+        }
+
+
+        /* =====================================================
+           LAUNCHER
+        ===================================================== */
+
+        .launcher {
+            background:
+                #080808;
+        }
+
+        .launcher-box {
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            padding:
+                75px;
+
+            border-radius:
+                20px;
+
+            border:
+                1px solid
+                rgba(255,106,0,.2);
+
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(255,106,0,.13),
+                    rgba(255,255,255,.025)
+                );
+        }
+
+        .launcher-box::before {
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                450px;
+
+            height:
+                450px;
+
+            right:
+                -180px;
+
+            bottom:
+                -260px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(255,106,0,.13);
+
+            filter:
+                blur(70px);
+        }
+
+        .launcher-title {
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                clamp(35px, 5vw, 62px);
+
+            line-height:
+                1;
+
+            text-transform:
+                uppercase;
+        }
+
+        .launcher-title span {
+            color:
+                var(--orange);
+        }
+
+        .launcher-text {
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            max-width:
+                760px;
+
+            margin-top:
+                20px;
+
+            color:
+                rgba(255,255,255,.55);
+
+            line-height:
+                1.75;
+
+            font-size:
+                15px;
+        }
+
+        .launcher-button {
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            margin-top:
+                30px;
+        }
+
+
+        /* =====================================================
+           SERVER
+        ===================================================== */
+
+        .servers {
+            background:
+                #050505;
+        }
+
+        .server-head {
+            margin-bottom:
+                45px;
+        }
+
+        .server-card {
+            position:
+                relative;
+
+            min-height:
+                300px;
+
+            border-radius:
+                18px;
+
+            overflow:
+                hidden;
+
+            border:
+                1px solid
+                rgba(255,106,0,.25);
+
+            background:
+                #101010;
+
+            box-shadow:
+                0 25px 80px
+                rgba(0,0,0,.45);
+        }
+
+        .server-bg {
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            object-fit:
+                cover;
+
+            opacity:
+                .42;
+
+            filter:
+                saturate(.85);
+        }
+
+        .server-card::before {
+            content:
+                "";
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0,0,0,.96),
+                    rgba(0,0,0,.67),
+                    rgba(0,0,0,.5)
+                );
+
+            z-index:
+                1;
+        }
+
+        .server-content {
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            min-height:
+                300px;
+
+            padding:
+                45px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                30px;
+        }
+
+        .server-left {
+            max-width:
+                650px;
+        }
+
+        .server-tag {
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            color:
+                var(--orange);
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                2px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .server-tag::before {
+            content:
+                "";
+
+            width:
+                7px;
+
+            height:
+                7px;
+
+            background:
+                var(--orange);
+
+            border-radius:
+                50%;
+
+            box-shadow:
+                0 0 12px
+                var(--orange);
+        }
+
+        .server-name {
+            margin-top:
+                13px;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                clamp(35px, 5vw, 58px);
+
+            font-weight:
+                900;
+
+            line-height:
+                1;
+
+            text-transform:
+                uppercase;
+        }
+
+        .server-name span {
+            color:
+                var(--orange);
+        }
+
+        .server-ip {
+            margin-top:
+                17px;
+
+            color:
+                rgba(255,255,255,.5);
+
+            font-size:
+                13px;
+        }
+
+        .server-ip strong {
+            color:
+                white;
+        }
+
+        .server-right {
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+        }
+
+        .online-box {
+            min-width:
+                155px;
+
+            padding:
+                20px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.09);
+
+            border-radius:
+                12px;
+
+            background:
+                rgba(0,0,0,.45);
+
+            backdrop-filter:
+                blur(10px);
+        }
+
+        .online-label {
+            color:
+                rgba(255,255,255,.4);
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                2px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .online-number {
+            margin-top:
+                7px;
+
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                30px;
+
+            font-weight:
+                900;
+        }
+
+        .online-number span {
+            color:
+                var(--orange);
+        }
+
+        .online-status {
+            margin-top:
+                5px;
+
+            color:
+                #69d17d;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+        }
+
+
+        /* =====================================================
+           SOCIAL
+        ===================================================== */
+
+        .social {
+            padding-top:
+                90px;
+
+            padding-bottom:
+                100px;
+
+            background:
+                #080808;
+        }
+
+        .social-box {
+            text-align:
+                center;
+        }
+
+        .social-box h2 {
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-size:
+                clamp(35px, 5vw, 62px);
+
+            text-transform:
+                uppercase;
+        }
+
+        .social-box h2 span {
+            color:
+                var(--orange);
+        }
+
+        .social-box p {
+            max-width:
+                600px;
+
+            margin:
+                18px auto 0;
+
+            color:
+                rgba(255,255,255,.5);
+
+            line-height:
+                1.7;
+        }
+
+        .social-buttons {
+            margin-top:
+                35px;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            gap:
+                13px;
+
+            flex-wrap:
+                wrap;
+        }
+
+        .social-button {
+            min-width:
+                190px;
+
+            min-height:
+                60px;
+
+            padding:
+                0 25px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius:
+                11px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                11px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                900;
+
+            transition:
+                .3s ease;
+
+            background:
+                #0e0e0e;
+        }
+
+        .social-button svg {
+            width:
+                21px;
+
+            height:
+                21px;
+
+            fill:
+                currentColor;
+        }
+
+        .social-button.telegram:hover {
+            background:
+                #229ed9;
+
+            border-color:
+                #229ed9;
+
+            transform:
+                translateY(-4px);
+        }
+
+        .social-button.discord:hover {
+            background:
+                #5865f2;
+
+            border-color:
+                #5865f2;
+
+            transform:
+                translateY(-4px);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            padding:
+                35px 5%;
+
+            background:
+                #030303;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,.06);
+        }
+
+        .footer-inner {
+            max-width:
+                1400px;
+
+            margin:
+                auto;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+        }
+
+        .footer-brand {
+            font-family:
+                "Montserrat",
+                sans-serif;
+
+            font-weight:
+                900;
+
+            font-size:
+                14px;
+        }
+
+        .footer-brand span {
+            color:
+                var(--orange);
+        }
+
+        .footer-copy {
+            color:
+                rgba(255,255,255,.28);
+
+            font-size:
+                11px;
+        }
+
+        .footer-top {
+            color:
+                var(--orange);
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+        }
+
+
+        /* =====================================================
+           REVEAL
+        ===================================================== */
+
+        .reveal {
+            opacity:
+                0;
+
+            transform:
+                translateY(35px);
+
+            transition:
+                opacity .8s ease,
+                transform .8s ease;
+        }
+
+        .reveal.active {
+            opacity:
+                1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =====================================================
+           FLOATING ORANGE LIGHT
+        ===================================================== */
+
+        .orange-light {
+            position:
+                fixed;
+
+            width:
+                350px;
+
+            height:
+                350px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(255,106,0,.07);
+
+            filter:
+                blur(90px);
+
+            pointer-events:
+                none;
+
+            z-index:
+                -1;
+
+            animation:
+                floatingLight 8s
+                ease-in-out
+                infinite alternate;
+        }
+
+        .light-1 {
+            top:
+                10%;
+
+            right:
+                -180px;
+        }
+
+        .light-2 {
+            bottom:
+                20%;
+
+            left:
+                -200px;
+
+            animation-delay:
+                2s;
+        }
+
+        @keyframes floatingLight {
+
+            from {
+                transform:
+                    translateY(-20px)
+                    scale(1);
+            }
+
+            to {
+                transform:
+                    translateY(30px)
+                    scale(1.12);
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .systems-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .server-content {
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+
+            .server-right {
+                width:
+                    100%;
+            }
+
+            .online-box {
+                width:
+                    100%;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .header {
+                padding:
+                    15px 5%;
+            }
+
+            .brand {
+                font-size:
+                    16px;
+            }
+
+            .burger {
+                width:
+                    44px;
+
+                height:
+                    44px;
+            }
+
+            .hero {
+                min-height:
+                    820px;
+            }
+
+            .hero-content {
+                padding:
+                    140px 5% 100px;
+            }
+
+            .hero-title {
+                font-size:
+                    43px;
+
+                letter-spacing:
+                    -2px;
+            }
+
+            .hero-description {
+                font-size:
+                    14px;
+            }
+
+            .hero-buttons {
+                flex-direction:
+                    column;
+            }
+
+            .button {
+                width:
+                    100%;
+            }
+
+            .main-photo-section {
+                padding:
+                    0 5% 70px;
+            }
+
+            .main-photo img {
+                height:
+                    260px;
+            }
+
+            .photo-caption {
+                left:
+                    18px;
+
+                bottom:
+                    18px;
+
+                font-size:
+                    10px;
+            }
+
+            section {
+                padding:
+                    75px 5%;
+            }
+
+            .section-title {
+                font-size:
+                    36px;
+            }
+
+            .systems-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .system-image {
+                height:
+                    230px;
+            }
+
+            .more-systems {
+                padding:
+                    35px 25px;
+            }
+
+            .launcher-box {
+                padding:
+                    45px 25px;
+            }
+
+            .launcher-title {
+                font-size:
+                    37px;
+            }
+
+            .server-card {
+                min-height:
+                    430px;
+            }
+
+            .server-content {
+                min-height:
+                    430px;
+
+                padding:
+                    30px 25px;
+            }
+
+            .server-right {
+                flex-direction:
+                    column;
+            }
+
+            .online-box {
+                min-width:
+                    100%;
+            }
+
+            .social-buttons {
+                flex-direction:
+                    column;
+            }
+
+            .social-button {
+                width:
+                    100%;
+            }
+
+            .footer-inner {
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     FLOATING BACKGROUND LIGHTS
+========================================================= -->
+
+<div class="orange-light light-1"></div>
+<div class="orange-light light-2"></div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header" id="header">
+
+    <div class="header-inner">
+
+        <a
+            href="#home"
+            class="brand"
+        >
+            UFA <span>ROLE PLAY</span>
+        </a>
+
+
+        <button
+            class="burger"
+            id="burger"
+            aria-label="Открыть меню"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MENU OVERLAY
+========================================================= -->
+
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+></div>
+
+
+<!-- =========================================================
+     SIDE MENU
+========================================================= -->
+
+<aside
+    class="side-menu"
+    id="sideMenu"
+>
+
+    <div class="menu-title">
+        Навигация
+    </div>
+
+
+    <nav class="menu-links">
+
+        <a
+            href="#home"
+            class="menu-link menu-close"
+        >
+            Главная
+        </a>
+
+        <a
+            href="#play"
+            class="menu-link menu-close"
+        >
+            Играть
+        </a>
+
+        <a
+            href="https://ufarp-forum.samp.date/index.php"
+            target="_blank"
+            class="menu-link"
+        >
+            Форум
+        </a>
+
+    </nav>
+
+
+    <div class="menu-socials">
+
+        <a
+            href="https://t.me/+IiuEU9mHqbc0MWYx"
+            target="_blank"
+            class="social-menu"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                width="19"
+                height="19"
+                fill="currentColor"
+            >
+                <path d="M21.8 4.2 18.7 19c-.2 1- .8 1.2-1.6.8l-4.4-3.2-2.1 2c-.2.2-.4.4-.8.4l.3-4.5 8.2-7.4c.4-.4-.1-.6-.6-.2L7.6 13.4 3.3 12c-.9-.3-.9-.9.2-1.3L20.3 4c.8-.3 1.6.2 1.5.2z"/>
+            </svg>
+
+            Telegram
+
+        </a>
+
+
+        <a
+            href="https://discord.gg/3aZEDUS37"
+            target="_blank"
+            class="social-menu"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                width="19"
+                height="19"
+                fill="currentColor"
+            >
+                <path d="M19.5 5.2A16.7 16.7 0 0 0 15.4 4l-.5 1a15.3 15.3 0 0 0-5.8 0l-.5-1a16.7 16.7 0 0 0-4.1 1.2C1.9 9 1.2 12.7 1.5 16.4a16.7 16.7 0 0 0 5 2.5l1.2-1.6c-.7-.3-1.3-.7-1.9-1.1l.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4c-.6.4-1.2.8-1.9 1.1l1.2 1.6a16.7 16.7 0 0 0 5-2.5c.4-4.3-.7-8-3-11.2zM8.4 14.3c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2zm7.2 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2z"/>
+            </svg>
+
+            Discord
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<main id="home">
+
+    <section class="hero">
+
+        <!-- ГЛАВНОЕ ФОТО -->
+        <img
+            class="hero-image"
+            src="https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1"
+            alt="UFA ROLE PLAY"
+        >
+
+
+        <div class="hero-content">
+
+            <div class="hero-small">
+                UFA ROLE PLAY
+            </div>
+
+
+            <h1 class="hero-title">
+
+                <span class="orange">
+                    Играй в Россию
+                </span>
+
+                <br>
+
+                на своем смартфоне
+
+                <br>
+
+                <span class="black-word">
+                    | Официальный сайт
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Окунись в большой мир Role Play,
+                где каждый игрок самостоятельно
+                создаёт свою историю.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#play"
+                    class="button button-orange"
+                >
+                    НАЧАТЬ ИГРАТЬ
+                </a>
+
+
+                <a
+                    href="https://ufarp-forum.samp.date/index.php"
+                    target="_blank"
+                    class="button button-dark"
+                >
+                    ОТКРЫТЬ ФОРУМ
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN PROJECT PHOTO
+    ====================================================== -->
+
+    <section class="main-photo-section">
+
+        <div class="main-photo reveal">
+
+            <img
+                src="https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1"
+                alt="UFA ROLE PLAY"
+            >
+
+            <div class="photo-caption">
+
+                UFA ROLE PLAY
+                <span>•</span>
+                ТВОЯ ИСТОРИЯ
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WHY PLAY
+    ====================================================== -->
+
+    <section
+        class="why"
+        id="about"
+    >
+
+        <div class="container">
+
+
+            <div class="reveal">
+
+                <div class="section-label">
+                    UFA ROLE PLAY
+                </div>
+
+
+                <h2 class="section-title">
+
+                    Почему нужно играть
+                    <span>на UFA ROLE PLAY?</span>
+
+                </h2>
+
+
+                <p class="section-description">
+
+                    UFA ROLE PLAY — это игровой мир,
+                    в котором можно найти работу,
+                    создать семью, приобрести автомобиль,
+                    вступить в организацию и просто
+                    наслаждаться атмосферой проекта.
+
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 SYSTEM CARDS
+            ================================================== -->
+
+            <div class="systems-grid">
+
+
+                <!-- СЕМЬИ -->
+
+                <article class="system-card reveal">
+
+                    <div class="system-image">
+
+                        <img
+                            src="https://www.dropbox.com/scl/fi/fjx0g8ut2fiw5hgyvymoc/Photo-28.09.2026-19-02-27.jpg?rlkey=55qf1p6o78lfmeo72wyhrnu52&st=hy3gossf&raw=1"
+                            alt="Система семей"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="system-info">
+
+                        <div class="system-number">
+                            СИСТЕМА 01
+                        </div>
+
+                        <h3>
+                            Система семей
+                        </h3>
+
+                        <p>
+
+                            Создавай свою семью,
+                            общайся вместе с друзьями
+                            и развивайте собственную историю
+                            внутри игрового мира.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- АВТОСАЛОН -->
+
+                <article class="system-card reveal">
+
+                    <div class="system-image">
+
+                        <img
+                            src="https://www.dropbox.com/scl/fi/3b0apd859rakwcf11w7t8/Photo-28.09.2026-19-02-27-2.jpg?rlkey=r3ji4ynrd06wmvygpsicno57w&st=5ylli2uk&raw=1"
+                            alt="Автосалон"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="system-info">
+
+                        <div class="system-number">
+                            СИСТЕМА 02
+                        </div>
+
+                        <h3>
+                            Большой автосалон
+                        </h3>
+
+                        <p>
+
+                            Выбирай автомобиль
+                            под свой стиль игры.
+                            В автосалоне тебя ждёт
+                            большой выбор транспорта.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- МУЗЫКА -->
+
+                <article class="system-card reveal">
+
+                    <div class="system-image">
+
+                        <img
+                            src="https://www.dropbox.com/scl/fi/23ohet6a7xm9i9n9fvvm9/Photo-28.09.2026-19-02-27-2-1.jpg?rlkey=5frb789gh8m877n8qahaxcjz7&st=j701e8l7&raw=1"
+                            alt="Система музыки"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="system-info">
+
+                        <div class="system-number">
+                            СИСТЕМА 03
+                        </div>
+
+                        <h3>
+                            Музыкальная система
+                        </h3>
+
+                        <p>
+
+                            Просто катайся по городу,
+                            включай любимую музыку
+                            и наслаждайся атмосферой
+                            своего персонажа.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- =================================================
+                 MORE
+            ================================================== -->
+
+            <div class="more-systems reveal">
+
+                <h3>
+
+                    И это только
+                    <span>начало.</span>
+
+                </h3>
+
+
+                <p>
+
+                    На проекте есть множество других
+                    возможностей: организации, работы,
+                    система доната, транспорт, имущество
+                    и другие игровые механики.
+                    UFA ROLE PLAY постоянно развивается,
+                    поэтому впереди игроков ждёт ещё
+                    больше возможностей.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LAUNCHER
+    ====================================================== -->
+
+    <section
+        class="launcher"
+        id="play"
+    >
+
+        <div class="container">
+
+            <div class="launcher-box reveal">
+
+                <h2 class="launcher-title">
+
+                    Скачай наш лаунчер
+                    <br>
+
+                    и <span>начни играть!</span>
+
+                </h2>
+
+
+                <p class="launcher-text">
+
+                    Играть на нашем проекте очень просто.
+                    Достаточно скачать наш лаунчер,
+                    который сам установит все необходимые
+                    компоненты игры. Останется только
+                    ввести свой игровой ник и нажать
+                    на кнопку «Играть».
+
+                </p>
+
+
+                <div class="launcher-button">
+
+                    <a
+                        href="https://disk.yandex.ru/d/26Q8s3AYIy9G-g"
+                        target="_blank"
+                        class="button button-orange"
+                    >
+
+                        ⬇
+                        &nbsp;
+                        НАЧАТЬ ИГРАТЬ
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SERVER
+    ====================================================== -->
+
+    <section class="servers">
+
+        <div class="container">
+
+
+            <div class="server-head reveal">
+
+                <div class="section-label">
+                    ИГРОВЫЕ СЕРВЕРЫ
+                </div>
+
+
+                <h2 class="section-title">
+
+                    Выбери свой
+                    <span>сервер</span>
+
+                </h2>
+
+
+                <p class="section-description">
+
+                    Подключайся к серверу UFA ROLE PLAY
+                    и начинай свою историю прямо сейчас.
+
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 SERVER CARD
+            ================================================== -->
+
+            <div class="server-card reveal">
+
+
+                <!-- ФОНОВОЕ ФОТО С ПРОЕКТА -->
+
+                <img
+                    class="server-bg"
+                    src="https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1"
+                    alt="UFA ROLE PLAY сервер"
+                    loading="lazy"
+                >
+
+
+                <div class="server-content">
+
+
+                    <div class="server-left">
+
+                        <div class="server-tag">
+                            ONLINE
+                        </div>
+
+
+                        <h3 class="server-name">
+
+                            UFA
+                            <span>ROLE PLAY</span>
+
+                        </h3>
+
+
+                        <div class="server-ip">
+
+                            Сервер:
+                            <strong>
+                                RED
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="server-right">
+
+                        <div class="online-box">
+
+                            <div class="online-label">
+                                Общий онлайн
+                            </div>
+
+
+                            <div class="online-number">
+
+                                20
+                                <span>/ 1000</span>
+
+                            </div>
+
+
+                            <div class="online-status">
+                                ● Сервер работает
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            href="https://disk.yandex.ru/d/26Q8s3AYIy9G-g"
+                            target="_blank"
+                            class="button button-orange"
+                        >
+                            ИГРАТЬ
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SOCIAL
+    ====================================================== -->
+
+    <section class="social">
+
+        <div class="container">
+
+            <div class="social-box reveal">
+
+
+                <div class="section-label">
+                    COMMUNITY
+                </div>
+
+
+                <h2>
+
+                    Следи за
+                    <span>новостями</span>
+
+                </h2>
+
+
+                <p>
+
+                    Присоединяйся к нашему сообществу,
+                    чтобы первым узнавать об обновлениях,
+                    событиях и новостях UFA ROLE PLAY.
+
+                </p>
+
+
+                <div class="social-buttons">
+
+
+                    <!-- TELEGRAM -->
+
+                    <a
+                        href="https://t.me/+IiuEU9mHqbc0MWYx"
+                        target="_blank"
+                        class="social-button telegram"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M21.8 4.2 18.7 19c-.2 1-.8 1.2-1.6.8l-4.4-3.2-2.1 2c-.2.2-.4.4-.8.4l.3-4.5 8.2-7.4c.4-.4-.1-.6-.6-.2L7.6 13.4 3.3 12c-.9-.3-.9-.9.2-1.3L20.3 4c.8-.3 1.6.2 1.5.2z"/>
+                        </svg>
+
+                        TELEGRAM
+
+                    </a>
+
+
+                    <!-- DISCORD -->
+
+                    <a
+                        href="https://discord.gg/3aZEDUS37"
+                        target="_blank"
+                        class="social-button discord"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M19.5 5.2A16.7 16.7 0 0 0 15.4 4l-.5 1a15.3 15.3 0 0 0-5.8 0l-.5-1a16.7 16.7 0 0 0-4.1 1.2C1.9 9 1.2 12.7 1.5 16.4a16.7 16.7 0 0 0 5 2.5l1.2-1.6c-.7-.3-1.3-.7-1.9-1.1l.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4c-.6.4-1.2.8-1.9 1.1l1.2 1.6a16.7 16.7 0 0 0 5-2.5c.4-4.3-.7-8-3-11.2zM8.4 14.3c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2zm7.2 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2z"/>
+                        </svg>
+
+                        DISCORD
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-inner">
+
+
+        <div class="footer-brand">
+
+            UFA
+            <span>ROLE PLAY</span>
+
+        </div>
+
+
+        <div class="footer-copy">
+
+            © 2026 UFA ROLE PLAY.
+            Все права защищены.
+
+        </div>
+
+
+        <a
+            href="#home"
+            class="footer-top"
+        >
+
+            НАВЕРХ ↑
+
+        </a>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+    /* =====================================================
+       HEADER SCROLL
+    ===================================================== */
+
+    const header =
+        document.getElementById("header");
+
+
+    window.addEventListener(
+        "scroll",
+        function() {
+
+            if (window.scrollY > 50) {
+
+                header.classList.add(
+                    "scrolled"
+                );
+
+            } else {
+
+                header.classList.remove(
+                    "scrolled"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       MENU
+    ===================================================== */
+
+    const burger =
+        document.getElementById("burger");
+
+    const sideMenu =
+        document.getElementById("sideMenu");
+
+    const menuOverlay =
+        document.getElementById("menuOverlay");
+
+    const menuClose =
+        document.querySelectorAll(".menu-close");
+
+
+    function openMenu() {
+
+        burger.classList.add("active");
+
+        sideMenu.classList.add("active");
+
+        menuOverlay.classList.add("active");
+
+        document.body.classList.add(
+            "menu-open"
+        );
+
+    }
+
+
+    function closeMenu() {
+
+        burger.classList.remove("active");
+
+        sideMenu.classList.remove("active");
+
+        menuOverlay.classList.remove("active");
+
+        document.body.classList.remove(
+            "menu-open"
+        );
+
+    }
+
+
+    burger.addEventListener(
+        "click",
+        function() {
+
+            if (
+                sideMenu.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeMenu();
+
+            } else {
+
+                openMenu();
+
+            }
+
+        }
+    );
+
+
+    menuOverlay.addEventListener(
+        "click",
+        closeMenu
+    );
+
+
+    menuClose.forEach(
+        function(link) {
+
+            link.addEventListener(
+                "click",
+                closeMenu
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       ESC CLOSE
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    const observer =
+        new IntersectionObserver(
+            function(entries) {
+
+                entries.forEach(
+                    function(entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "active"
+                            );
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    revealElements.forEach(
+        function(element) {
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       IMAGE FALLBACK
+       Если Dropbox не отдаст картинку,
+       показываем красивый тёмный фон
+    ===================================================== */
+
+    document
+        .querySelectorAll("img")
+        .forEach(function(img) {
+
+            img.addEventListener(
+                "error",
+                function() {
+
+                    this.style.display =
+                        "none";
+
+                    this.parentElement.style
+                        .background =
+                        "linear-gradient(135deg,#151515,#080808)";
+
+                }
+            );
+
+        });
+
+
+</script>
+
+
+</body>
+</html>
