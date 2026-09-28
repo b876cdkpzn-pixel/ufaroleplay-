@@ -11,15 +11,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
+
 :root {
-    --orange: #ff6a00;
-    --orange-light: #ff8a00;
+    --orange: #ff6500;
+    --orange2: #ff8a00;
     --black: #050505;
     --dark: #0b0b0b;
     --card: #111111;
     --white: #ffffff;
-    --gray: #a5a5a5;
-    --line: rgba(255,255,255,.08);
+    --gray: #999999;
 }
 
 * {
@@ -33,8 +33,8 @@ html {
 }
 
 body {
-    background: var(--black);
-    color: var(--white);
+    background: #050505;
+    color: white;
     font-family: "Inter", sans-serif;
     overflow-x: hidden;
 }
@@ -48,21 +48,23 @@ button {
     font-family: inherit;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
+/* =================================
+   BACKGROUND GLOW
+================================= */
 
 body::before {
     content: "";
     position: fixed;
     width: 600px;
     height: 600px;
-    background: var(--orange);
-    filter: blur(180px);
-    opacity: .08;
-    border-radius: 50%;
+    left: -300px;
     top: -250px;
-    left: -250px;
+
+    background: #ff6500;
+    opacity: .06;
+    filter: blur(180px);
+    border-radius: 50%;
+
     pointer-events: none;
     z-index: -1;
 }
@@ -72,27 +74,29 @@ body::after {
     position: fixed;
     width: 500px;
     height: 500px;
-    background: #ff3d00;
-    filter: blur(180px);
-    opacity: .06;
-    border-radius: 50%;
     right: -250px;
-    bottom: -200px;
+    bottom: -250px;
+
+    background: #ff3c00;
+    opacity: .05;
+    filter: blur(180px);
+    border-radius: 50%;
+
     pointer-events: none;
     z-index: -1;
 }
 
-/* =========================
+/* =================================
    HEADER
-========================= */
+================================= */
 
 .header {
     position: fixed;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 76px;
-    z-index: 1000;
 
     display: flex;
     align-items: center;
@@ -100,17 +104,20 @@ body::after {
 
     padding: 0 45px;
 
-    background: rgba(5,5,5,.72);
+    background: rgba(5,5,5,.68);
     backdrop-filter: blur(18px);
+
     border-bottom: 1px solid rgba(255,255,255,.06);
+
+    z-index: 1000;
 
     animation: headerIn .8s ease forwards;
 }
 
 .logo {
     font-family: "Montserrat", sans-serif;
-    font-weight: 900;
     font-size: 21px;
+    font-weight: 900;
     letter-spacing: -1px;
 }
 
@@ -121,16 +128,20 @@ body::after {
 .menu-button {
     width: 48px;
     height: 48px;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 13px;
-    background: rgba(255,255,255,.04);
-    cursor: pointer;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     gap: 5px;
+
+    border-radius: 13px;
+    border: 1px solid rgba(255,255,255,.1);
+
+    background: rgba(255,255,255,.04);
+
+    cursor: pointer;
 
     transition: .3s ease;
 }
@@ -138,15 +149,18 @@ body::after {
 .menu-button:hover {
     background: var(--orange);
     border-color: var(--orange);
-    transform: rotate(3deg) scale(1.05);
+
+    transform: scale(1.05);
 }
 
 .menu-button span {
-    display: block;
     width: 20px;
     height: 2px;
-    border-radius: 10px;
+
+    border-radius: 5px;
+
     background: white;
+
     transition: .3s ease;
 }
 
@@ -162,20 +176,22 @@ body::after {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* =========================
-   SIDE MENU
-========================= */
+/* =================================
+   OVERLAY
+================================= */
 
 .menu-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.65);
+
+    background: rgba(0,0,0,.7);
     backdrop-filter: blur(5px);
 
     opacity: 0;
     visibility: hidden;
 
     transition: .35s ease;
+
     z-index: 998;
 }
 
@@ -184,8 +200,13 @@ body::after {
     visibility: visible;
 }
 
+/* =================================
+   SIDE MENU
+================================= */
+
 .side-menu {
     position: fixed;
+
     top: 0;
     right: 0;
 
@@ -199,18 +220,20 @@ body::after {
     background:
         linear-gradient(
             145deg,
-            rgba(22,22,22,.98),
+            rgba(22,22,22,.99),
             rgba(5,5,5,.99)
         );
 
-    border-left: 1px solid rgba(255,106,0,.22);
+    border-left: 1px solid rgba(255,101,0,.25);
+
+    box-shadow: -30px 0 100px rgba(0,0,0,.5);
 
     transform: translateX(100%);
-    transition: transform .45s cubic-bezier(.77,0,.18,1);
+
+    transition:
+        transform .5s cubic-bezier(.77,0,.18,1);
 
     z-index: 999;
-
-    box-shadow: -30px 0 80px rgba(0,0,0,.5);
 }
 
 .side-menu.active {
@@ -218,16 +241,19 @@ body::after {
 }
 
 .side-title {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--gray);
-    letter-spacing: 2px;
-    margin-bottom: 22px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #777;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 20px;
 }
 
 .menu-links {
     display: flex;
     flex-direction: column;
+
     gap: 9px;
 }
 
@@ -238,21 +264,22 @@ body::after {
 
     padding: 18px 19px;
 
-    border: 1px solid rgba(255,255,255,.06);
-    background: rgba(255,255,255,.025);
     border-radius: 13px;
 
-    font-size: 16px;
-    font-weight: 700;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.06);
 
-    transform: translateX(35px);
+    font-size: 15px;
+    font-weight: 800;
+
     opacity: 0;
+    transform: translateX(35px);
 
     transition: .3s ease;
 }
 
 .side-menu.active .menu-link {
-    animation: menuItemIn .45s ease forwards;
+    animation: menuIn .5s ease forwards;
 }
 
 .side-menu.active .menu-link:nth-child(1) {
@@ -260,23 +287,25 @@ body::after {
 }
 
 .side-menu.active .menu-link:nth-child(2) {
-    animation-delay: .14s;
+    animation-delay: .15s;
 }
 
 .side-menu.active .menu-link:nth-child(3) {
-    animation-delay: .20s;
+    animation-delay: .22s;
 }
 
 .menu-link:hover {
     background: var(--orange);
     border-color: var(--orange);
+
     transform: translateX(-5px);
 }
 
 .menu-arrow {
     color: var(--orange);
-    font-size: 18px;
-    transition: .3s;
+    font-size: 19px;
+
+    transition: .3s ease;
 }
 
 .menu-link:hover .menu-arrow {
@@ -284,18 +313,20 @@ body::after {
     transform: translateX(4px);
 }
 
-/* =========================
+/* =================================
    SOCIAL MENU
-========================= */
+================================= */
 
 .menu-social-title {
     margin-top: 38px;
     margin-bottom: 16px;
 
-    font-size: 12px;
-    color: var(--gray);
-    font-weight: 800;
-    letter-spacing: 2px;
+    color: #777;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
 }
 
 .social-menu {
@@ -305,17 +336,18 @@ body::after {
 }
 
 .social-menu a {
-    min-height: 85px;
+    min-height: 90px;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
     gap: 9px;
 
     border-radius: 14px;
-    border: 1px solid rgba(255,255,255,.07);
 
+    border: 1px solid rgba(255,255,255,.07);
     background: rgba(255,255,255,.025);
 
     opacity: 0;
@@ -329,7 +361,7 @@ body::after {
 }
 
 .side-menu.active .social-menu a:nth-child(1) {
-    animation-delay: .30s;
+    animation-delay: .3s;
 }
 
 .side-menu.active .social-menu a:nth-child(2) {
@@ -351,9 +383,8 @@ body::after {
 }
 
 .social-icon {
-    width: 30px;
-    height: 30px;
-    display: block;
+    width: 31px;
+    height: 31px;
 }
 
 .telegram .social-icon {
@@ -365,44 +396,146 @@ body::after {
 }
 
 .social-name {
-    font-size: 12px;
-    font-weight: 800;
+    font-size: 11px;
+    font-weight: 900;
 }
 
-/* =========================
+/* =================================
    HERO
-========================= */
+================================= */
 
 .hero {
+    position: relative;
+
     min-height: 100vh;
-    padding: 150px 7% 80px;
 
     display: flex;
     align-items: center;
 
-    position: relative;
+    padding: 140px 7% 90px;
+
     overflow: hidden;
 }
 
+/*
+   ИГРОВОЙ БАННЕР
+*/
+
+.hero-banner {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 67%;
+    height: 100%;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            #050505 0%,
+            rgba(5,5,5,.94) 9%,
+            rgba(5,5,5,.58) 32%,
+            rgba(5,5,5,.15) 65%,
+            rgba(5,5,5,.25) 100%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(5,5,5,.1),
+            rgba(5,5,5,.55)
+        ),
+        url("https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1");
+
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0;
+
+    animation:
+        bannerIn 1.3s ease forwards,
+        bannerZoom 12s ease-in-out infinite alternate;
+
+    animation-delay: .1s, 1.5s;
+}
+
+/*
+   ДОПОЛНИТЕЛЬНЫЙ ORANGE GLOW
+*/
+
+.hero-banner::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: 5%;
+    top: 20%;
+
+    background: #ff6500;
+
+    filter: blur(170px);
+
+    opacity: .08;
+
+    border-radius: 50%;
+}
+
+/*
+   НИЖНИЙ ГРАДИЕНТ
+*/
+
+.hero-banner::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 55%,
+            #050505 100%
+        );
+}
+
+/* =================================
+   HERO CONTENT
+================================= */
+
 .hero-content {
-    width: 52%;
     position: relative;
-    z-index: 3;
+
+    z-index: 5;
+
+    width: 57%;
+
+    max-width: 850px;
 }
 
 .hero-title {
     font-family: "Montserrat", sans-serif;
+
     font-weight: 900;
-    line-height: .94;
-    letter-spacing: -3px;
-    font-size: clamp(50px, 6.3vw, 100px);
+
+    font-size: clamp(52px, 6.4vw, 105px);
+
+    line-height: .91;
+
+    letter-spacing: -4px;
 }
 
 .hero-line {
     display: block;
+
+    color: var(--orange);
+
     opacity: 0;
     transform: translateY(45px);
-    animation: heroLineIn .75s cubic-bezier(.2,.7,.2,1) forwards;
+
+    animation: heroLine .75s cubic-bezier(.2,.7,.2,1) forwards;
 }
 
 .hero-line:nth-child(1) {
@@ -421,57 +554,68 @@ body::after {
     animation-delay: .61s;
 }
 
-.orange-line {
-    color: var(--orange);
-    text-shadow: 0 0 40px rgba(255,106,0,.16);
-}
-
 .official-line {
     display: block;
 
-    margin-top: 25px;
+    margin-top: 27px;
 
     color: white;
-    font-size: clamp(14px, 1.4vw, 20px);
+
+    font-size: clamp(13px, 1.3vw, 20px);
+
+    font-weight: 900;
+
     letter-spacing: 5px;
-    font-weight: 800;
 
     opacity: 0;
     transform: translateY(25px);
 
     animation: fadeUp .7s ease forwards;
+
     animation-delay: .85s;
 }
 
 .hero-description {
-    max-width: 570px;
-    margin-top: 27px;
+    max-width: 590px;
 
-    color: #a7a7a7;
-    line-height: 1.7;
-    font-size: 16px;
+    margin-top: 28px;
+
+    color: #aaa;
+
+    font-size: 15px;
+
+    line-height: 1.75;
 
     opacity: 0;
     transform: translateY(25px);
 
     animation: fadeUp .7s ease forwards;
+
     animation-delay: 1s;
 }
 
 .hero-buttons {
     display: flex;
+
     gap: 12px;
-    margin-top: 35px;
+
+    margin-top: 34px;
 
     opacity: 0;
     transform: translateY(25px);
 
     animation: fadeUp .7s ease forwards;
+
     animation-delay: 1.12s;
 }
 
+/* =================================
+   BUTTONS
+================================= */
+
 .btn {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
 
@@ -479,179 +623,168 @@ body::after {
 
     border-radius: 11px;
 
-    font-size: 13px;
+    font-size: 12px;
+
     font-weight: 900;
-    letter-spacing: .4px;
 
     transition: .3s ease;
 }
 
 .btn-orange {
     background: var(--orange);
+
     color: white;
-    box-shadow: 0 10px 35px rgba(255,106,0,.2);
+
+    box-shadow:
+        0 10px 35px rgba(255,101,0,.2);
 }
 
 .btn-orange:hover {
-    background: var(--orange-light);
+    background: var(--orange2);
+
     transform: translateY(-4px);
-    box-shadow: 0 15px 45px rgba(255,106,0,.3);
+
+    box-shadow:
+        0 18px 50px rgba(255,101,0,.3);
 }
 
 .btn-dark {
     background: rgba(255,255,255,.05);
+
     border: 1px solid rgba(255,255,255,.1);
+
+    color: white;
 }
 
 .btn-dark:hover {
     background: white;
+
     color: black;
+
     transform: translateY(-4px);
 }
 
-/* =========================
-   HERO IMAGE
-========================= */
-
-.hero-image {
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    width: 55%;
-    height: 100%;
-
-    background-image:
-        linear-gradient(
-            90deg,
-            #050505 0%,
-            rgba(5,5,5,.82) 13%,
-            rgba(5,5,5,.25) 55%,
-            rgba(5,5,5,.05) 100%
-        ),
-        url("https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1");
-
-    background-size: cover;
-    background-position: center;
-
-    opacity: 0;
-
-    animation:
-        heroImageIn 1.4s ease forwards,
-        heroZoom 10s ease-in-out infinite alternate;
-
-    animation-delay: .15s, 1.5s;
-}
-
-.hero-image::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            180deg,
-            transparent 60%,
-            #050505 100%
-        );
-}
-
-/* =========================
+/* =================================
    SECTIONS
-========================= */
+================================= */
 
 .section {
     padding: 110px 7%;
 }
 
 .section-head {
-    max-width: 750px;
+    max-width: 760px;
+
     margin-bottom: 50px;
 }
 
 .section-label {
     color: var(--orange);
-    font-size: 12px;
+
+    font-size: 11px;
+
     font-weight: 900;
+
     letter-spacing: 3px;
+
     margin-bottom: 15px;
 }
 
 .section-title {
     font-family: "Montserrat", sans-serif;
-    font-weight: 900;
-    font-size: clamp(32px, 4vw, 58px);
+
+    font-size: clamp(34px, 4vw, 60px);
+
     line-height: 1;
-    letter-spacing: -2px;
+
+    letter-spacing: -2.5px;
+
+    font-weight: 900;
 }
 
 .section-description {
+    color: #888;
+
     margin-top: 20px;
-    color: #909090;
-    line-height: 1.7;
-    max-width: 700px;
+
+    line-height: 1.75;
 }
 
-/* =========================
-   MAIN PHOTO
-========================= */
+/* =================================
+   MAIN IMAGE
+================================= */
 
 .main-photo {
     width: 100%;
-    border-radius: 22px;
+
+    border-radius: 23px;
+
     overflow: hidden;
 
     border: 1px solid rgba(255,255,255,.08);
 
-    box-shadow: 0 35px 100px rgba(0,0,0,.45);
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.5);
 }
 
 .main-photo img {
     display: block;
+
     width: 100%;
-    transition: transform .8s ease;
+
+    transition: .8s ease;
 }
 
 .main-photo:hover img {
     transform: scale(1.025);
 }
 
-/* =========================
+/* =================================
    SYSTEM CARDS
-========================= */
+================================= */
 
 .system-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 20px;
 }
 
 .system-card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 19px;
     overflow: hidden;
+
+    background: #101010;
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    border-radius: 19px;
 
     transition: .45s cubic-bezier(.2,.7,.2,1);
 }
 
 .system-card:hover {
     transform: translateY(-10px);
-    border-color: rgba(255,106,0,.4);
-    box-shadow: 0 25px 60px rgba(0,0,0,.4);
+
+    border-color: rgba(255,101,0,.4);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.45);
 }
 
 .system-image {
     height: 260px;
+
     overflow: hidden;
 }
 
 .system-image img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 
-    transition: transform .7s ease;
+    transition: .7s ease;
 }
 
 .system-card:hover .system-image img {
@@ -664,29 +797,41 @@ body::after {
 
 .system-number {
     color: var(--orange);
-    font-size: 11px;
+
+    font-size: 10px;
+
     font-weight: 900;
+
     letter-spacing: 2px;
+
     margin-bottom: 12px;
 }
 
 .system-info h3 {
     font-family: "Montserrat", sans-serif;
+
     font-size: 20px;
+
     margin-bottom: 10px;
 }
 
 .system-info p {
-    color: #858585;
-    font-size: 14px;
-    line-height: 1.6;
+    color: #808080;
+
+    font-size: 13px;
+
+    line-height: 1.7;
 }
 
-/* =========================
+/* =================================
    MORE SYSTEMS
-========================= */
+================================= */
 
 .more-block {
+    position: relative;
+
+    overflow: hidden;
+
     margin-top: 80px;
 
     padding: 45px;
@@ -696,109 +841,130 @@ body::after {
     background:
         linear-gradient(
             135deg,
-            rgba(255,106,0,.11),
-            rgba(255,255,255,.025)
+            rgba(255,101,0,.11),
+            rgba(255,255,255,.02)
         );
 
-    border: 1px solid rgba(255,106,0,.18);
-
-    position: relative;
-    overflow: hidden;
+    border: 1px solid rgba(255,101,0,.17);
 }
 
 .more-block::before {
     content: "";
-    position: absolute;
-    width: 220px;
-    height: 220px;
 
-    background: var(--orange);
-    filter: blur(100px);
-    opacity: .1;
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
 
     right: -100px;
-    top: -100px;
+    top: -130px;
+
+    background: var(--orange);
+
+    filter: blur(120px);
+
+    opacity: .09;
 }
 
 .more-block h3 {
     position: relative;
+
     font-family: "Montserrat", sans-serif;
+
     font-size: 30px;
-    margin-bottom: 15px;
+
+    margin-bottom: 14px;
 }
 
 .more-block p {
     position: relative;
-    color: #999;
-    line-height: 1.7;
+
+    color: #929292;
+
     max-width: 850px;
+
+    line-height: 1.75;
 }
 
-/* =========================
+/* =================================
    LAUNCHER
-========================= */
+================================= */
 
 .launcher {
-    padding: 100px 7%;
+    padding: 105px 7%;
 
     background:
         radial-gradient(
             circle at 80% 50%,
-            rgba(255,106,0,.13),
-            transparent 35%
+            rgba(255,101,0,.13),
+            transparent 36%
         ),
         #080808;
 }
 
 .launcher-box {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
-    gap: 70px;
+
     align-items: center;
+
+    gap: 70px;
 }
 
 .launcher-content h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: clamp(35px, 4vw, 58px);
-    line-height: 1;
-    letter-spacing: -2px;
+
+    font-size: clamp(36px, 4vw, 60px);
+
+    line-height: .98;
+
+    letter-spacing: -2.5px;
 }
 
 .launcher-content p {
-    color: #929292;
-    line-height: 1.7;
-    margin: 25px 0 30px;
     max-width: 620px;
+
+    margin: 25px 0 30px;
+
+    color: #909090;
+
+    line-height: 1.75;
 }
 
 .launcher-visual {
+    position: relative;
+
     min-height: 330px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
+
+    overflow: hidden;
 
     border-radius: 25px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,106,0,.2),
-            rgba(255,255,255,.025)
+            rgba(255,101,0,.2),
+            rgba(255,255,255,.02)
         );
 
     border: 1px solid rgba(255,255,255,.08);
-
-    position: relative;
-    overflow: hidden;
 }
 
 .launcher-visual::before {
     content: "UFA";
+
     position: absolute;
 
     font-family: "Montserrat", sans-serif;
-    font-size: 180px;
+
+    font-size: 190px;
+
     font-weight: 900;
 
     color: rgba(255,255,255,.025);
@@ -809,55 +975,66 @@ body::after {
     z-index: 2;
 
     font-family: "Montserrat", sans-serif;
-    font-size: 52px;
+
+    font-size: 55px;
+
     font-weight: 900;
 
     color: var(--orange);
 
-    text-shadow: 0 0 40px rgba(255,106,0,.3);
+    text-shadow:
+        0 0 45px rgba(255,101,0,.35);
 }
 
-/* =========================
+/* =================================
    SERVER
-========================= */
+================================= */
 
 .server-section {
     padding: 110px 7%;
 }
 
 .server-card {
-    min-height: 360px;
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 370px;
 
     padding: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 40px;
 
     border-radius: 25px;
 
     background:
         linear-gradient(
             120deg,
-            rgba(255,106,0,.14),
-            rgba(0,0,0,.8)
+            rgba(255,101,0,.14),
+            rgba(0,0,0,.85)
         );
 
-    border: 1px solid rgba(255,106,0,.2);
-
-    position: relative;
-    overflow: hidden;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
+    border: 1px solid rgba(255,101,0,.2);
 }
 
 .server-card::before {
     content: "UFA";
+
     position: absolute;
-    right: -20px;
-    bottom: -80px;
+
+    right: -30px;
+    bottom: -100px;
 
     font-family: "Montserrat", sans-serif;
-    font-size: 280px;
+
+    font-size: 300px;
+
     font-weight: 900;
 
     color: rgba(255,255,255,.025);
@@ -870,27 +1047,39 @@ body::after {
 
 .server-info h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: clamp(40px, 5vw, 72px);
-    line-height: .95;
+
+    font-size: clamp(42px, 5vw, 75px);
+
+    line-height: .94;
+
+    letter-spacing: -3px;
 }
 
 .server-status {
     display: flex;
+
     align-items: center;
+
     gap: 9px;
 
     margin-top: 25px;
 
     color: #aaa;
-    font-size: 14px;
+
+    font-size: 13px;
 }
 
 .online-dot {
     width: 9px;
     height: 9px;
-    background: #39d353;
+
     border-radius: 50%;
-    box-shadow: 0 0 15px #39d353;
+
+    background: #39d353;
+
+    box-shadow:
+        0 0 15px #39d353;
+
     animation: pulse 1.5s infinite;
 }
 
@@ -898,15 +1087,17 @@ body::after {
     position: relative;
     z-index: 2;
 
-    text-align: center;
+    min-width: 220px;
 
     padding: 35px 45px;
 
-    background: rgba(0,0,0,.35);
-    border: 1px solid rgba(255,255,255,.08);
+    text-align: center;
+
     border-radius: 20px;
 
-    min-width: 220px;
+    background: rgba(0,0,0,.35);
+
+    border: 1px solid rgba(255,255,255,.08);
 }
 
 .server-online strong {
@@ -915,19 +1106,23 @@ body::after {
     color: var(--orange);
 
     font-family: "Montserrat", sans-serif;
+
     font-size: 65px;
+
     line-height: 1;
 }
 
 .server-online span {
-    color: #888;
-    font-size: 13px;
-    font-weight: 700;
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: 800;
 }
 
-/* =========================
-   SOCIAL
-========================= */
+/* =================================
+   SOCIAL SECTION
+================================= */
 
 .social-section {
     padding: 100px 7%;
@@ -935,22 +1130,26 @@ body::after {
 
 .social-grid {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 20px;
 }
 
 .social-card {
+    position: relative;
+
     min-height: 220px;
 
     padding: 35px;
 
-    border-radius: 22px;
-
     display: flex;
+
     align-items: flex-end;
 
-    position: relative;
     overflow: hidden;
+
+    border-radius: 22px;
 
     border: 1px solid rgba(255,255,255,.08);
 
@@ -961,7 +1160,7 @@ body::after {
     transform: translateY(-8px);
 }
 
-.social-card.telegram-card {
+.telegram-card {
     background:
         linear-gradient(
             135deg,
@@ -970,7 +1169,7 @@ body::after {
         );
 }
 
-.social-card.discord-card {
+.discord-card {
     background:
         linear-gradient(
             135deg,
@@ -986,44 +1185,52 @@ body::after {
 
 .social-card-content h3 {
     font-family: "Montserrat", sans-serif;
+
     font-size: 30px;
+
     margin-bottom: 8px;
 }
 
 .social-card-content p {
-    color: #999;
+    color: #929292;
+
     margin-bottom: 20px;
 }
 
 .social-card-icon {
     position: absolute;
+
+    top: 28px;
     right: 30px;
-    top: 30px;
 
     width: 65px;
     height: 65px;
 }
 
-/* =========================
+/* =================================
    FOOTER
-========================= */
+================================= */
 
 footer {
     padding: 45px 7%;
 
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
     border-top: 1px solid rgba(255,255,255,.07);
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    color: #626262;
 
-    color: #666;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .footer-logo {
     font-family: "Montserrat", sans-serif;
+
     font-weight: 900;
+
     color: white;
 }
 
@@ -1031,13 +1238,15 @@ footer {
     color: var(--orange);
 }
 
-/* =========================
-   SCROLL REVEAL
-========================= */
+/* =================================
+   SCROLL ANIMATION
+================================= */
 
 .reveal {
     opacity: 0;
-    transform: translateY(50px);
+
+    transform: translateY(55px);
+
     transition:
         opacity .8s ease,
         transform .8s cubic-bezier(.2,.7,.2,1);
@@ -1045,12 +1254,15 @@ footer {
 
 .reveal.active {
     opacity: 1;
+
     transform: translateY(0);
 }
 
 .reveal-left {
     opacity: 0;
+
     transform: translateX(-60px);
+
     transition:
         opacity .8s ease,
         transform .8s cubic-bezier(.2,.7,.2,1);
@@ -1058,12 +1270,15 @@ footer {
 
 .reveal-left.active {
     opacity: 1;
+
     transform: translateX(0);
 }
 
 .reveal-right {
     opacity: 0;
+
     transform: translateX(60px);
+
     transition:
         opacity .8s ease,
         transform .8s cubic-bezier(.2,.7,.2,1);
@@ -1071,14 +1286,16 @@ footer {
 
 .reveal-right.active {
     opacity: 1;
+
     transform: translateX(0);
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
+/* =================================
+   KEYFRAMES
+================================= */
 
 @keyframes headerIn {
+
     from {
         opacity: 0;
         transform: translateY(-30px);
@@ -1088,9 +1305,11 @@ footer {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
-@keyframes heroLineIn {
+@keyframes heroLine {
+
     from {
         opacity: 0;
         transform: translateY(45px);
@@ -1100,9 +1319,11 @@ footer {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
 @keyframes fadeUp {
+
     from {
         opacity: 0;
         transform: translateY(25px);
@@ -1112,9 +1333,11 @@ footer {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
-@keyframes heroImageIn {
+@keyframes bannerIn {
+
     from {
         opacity: 0;
         transform: scale(1.08);
@@ -1124,9 +1347,11 @@ footer {
         opacity: 1;
         transform: scale(1);
     }
+
 }
 
-@keyframes heroZoom {
+@keyframes bannerZoom {
+
     from {
         background-size: 100%;
     }
@@ -1134,9 +1359,11 @@ footer {
     to {
         background-size: 106%;
     }
+
 }
 
-@keyframes menuItemIn {
+@keyframes menuIn {
+
     from {
         opacity: 0;
         transform: translateX(35px);
@@ -1146,9 +1373,11 @@ footer {
         opacity: 1;
         transform: translateX(0);
     }
+
 }
 
 @keyframes socialIn {
+
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -1158,9 +1387,11 @@ footer {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
 @keyframes pulse {
+
     0%, 100% {
         transform: scale(1);
         opacity: 1;
@@ -1170,11 +1401,12 @@ footer {
         transform: scale(1.5);
         opacity: .55;
     }
+
 }
 
-/* =========================
+/* =================================
    MOBILE
-========================= */
+================================= */
 
 @media (max-width: 900px) {
 
@@ -1183,8 +1415,12 @@ footer {
     }
 
     .hero {
-        min-height: auto;
-        padding: 145px 22px 70px;
+        min-height: 100vh;
+
+        padding:
+            140px
+            22px
+            80px;
     }
 
     .hero-content {
@@ -1192,22 +1428,21 @@ footer {
     }
 
     .hero-title {
-        font-size: clamp(43px, 13vw, 75px);
-        letter-spacing: -2.5px;
+        font-size: clamp(45px, 13vw, 78px);
+
+        letter-spacing: -3px;
     }
 
-    .hero-image {
+    .hero-banner {
         width: 100%;
-        height: 620px;
-        top: 100px;
 
-        opacity: .28;
+        opacity: .32;
 
         background-image:
             linear-gradient(
                 180deg,
                 #050505 0%,
-                rgba(5,5,5,.4) 50%,
+                rgba(5,5,5,.3) 45%,
                 #050505 100%
             ),
             url("https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1");
@@ -1229,10 +1464,6 @@ footer {
         padding: 75px 22px;
     }
 
-    .section-title {
-        letter-spacing: -1.5px;
-    }
-
     .system-grid {
         grid-template-columns: 1fr;
     }
@@ -1243,6 +1474,7 @@ footer {
 
     .more-block {
         margin-top: 45px;
+
         padding: 30px;
     }
 
@@ -1252,11 +1484,12 @@ footer {
 
     .launcher-box {
         grid-template-columns: 1fr;
+
         gap: 35px;
     }
 
     .launcher-visual {
-        min-height: 250px;
+        min-height: 260px;
     }
 
     .server-section {
@@ -1265,8 +1498,11 @@ footer {
 
     .server-card {
         padding: 35px 25px;
+
         min-height: auto;
+
         flex-direction: column;
+
         align-items: flex-start;
     }
 
@@ -1284,37 +1520,43 @@ footer {
 
     footer {
         padding: 35px 22px;
+
         flex-direction: column;
+
         gap: 15px;
+
         text-align: center;
     }
+
 }
 
 @media (max-width: 450px) {
 
     .side-menu {
-        padding: 100px 20px 25px;
+        padding:
+            100px
+            20px
+            25px;
     }
 
     .hero-title {
-        font-size: 43px;
+        font-size: 44px;
     }
 
     .official-line {
-        font-size: 11px;
+        font-size: 10px;
+
         letter-spacing: 3px;
     }
 
-    .social-menu {
-        grid-template-columns: 1fr 1fr;
-    }
 }
 
-/* =========================
+/* =================================
    REDUCED MOTION
-========================= */
+================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -1323,15 +1565,17 @@ footer {
         transition-duration: .01ms !important;
         scroll-behavior: auto !important;
     }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- =========================
+<!-- =================================
      HEADER
-========================= -->
+================================= -->
 
 <header class="header">
 
@@ -1339,25 +1583,39 @@ footer {
         UFA <span>ROLE PLAY</span>
     </a>
 
-    <button class="menu-button" id="menuButton" aria-label="Открыть меню">
+    <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="Открыть меню"
+    >
+
         <span></span>
         <span></span>
         <span></span>
+
     </button>
 
 </header>
 
-<!-- =========================
+
+<!-- =================================
      OVERLAY
-========================= -->
+================================= -->
 
-<div class="menu-overlay" id="menuOverlay"></div>
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+></div>
 
-<!-- =========================
+
+<!-- =================================
      SIDE MENU
-========================= -->
+================================= -->
 
-<aside class="side-menu" id="sideMenu">
+<aside
+    class="side-menu"
+    id="sideMenu"
+>
 
     <div class="side-title">
         НАВИГАЦИЯ
@@ -1365,12 +1623,18 @@ footer {
 
     <nav class="menu-links">
 
-        <a href="#home" class="menu-link">
+        <a
+            href="#home"
+            class="menu-link"
+        >
             <span>Главная</span>
             <span class="menu-arrow">→</span>
         </a>
 
-        <a href="#launcher" class="menu-link">
+        <a
+            href="#launcher"
+            class="menu-link"
+        >
             <span>Играть</span>
             <span class="menu-arrow">→</span>
         </a>
@@ -1381,14 +1645,16 @@ footer {
             class="menu-link"
         >
             <span>Форум</span>
-            <span class="menu-arrow">↗</span>
+            <span class="menu-arrow">→</span>
         </a>
 
     </nav>
 
+
     <div class="menu-social-title">
         МЫ В СОЦСЕТЯХ
     </div>
+
 
     <div class="social-menu">
 
@@ -1406,16 +1672,21 @@ footer {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
+
                 <path
-                    d="M21.6 3.2L18.3 20.1C18.05 21.3 17.36 21.6 16.4 21.05L11.05 17.1L8.47 19.58C8.18 19.87 7.94 20.11 7.35 20.11L7.73 14.66L17.65 5.7C18.08 5.32 17.56 5.11 16.99 5.49L4.72 13.22L-0.56 11.57C-1.71 11.21 -1.73 10.42 -0.32 9.87L20.34 1.9C21.3 1.55 22.13 2.12 21.6 3.2Z"
+                    d="M21.6 3.2L18.3 20.1C18.05 21.3 17.36 21.6 16.4 21.05L11.05 17.1L8.47 19.58C8.18 19.87 7.94 20.11 7.35 20.11L7.73 14.66L17.65 5.7C18.08 5.32 17.56 5.11 16.99 5.49L4.72 13.22L-.56 11.57C-1.71 11.21-1.73 10.42-.32 9.87L20.34 1.9C21.3 1.55 22.13 2.12 21.6 3.2Z"
                     fill="currentColor"
                     transform="translate(1 0)"
                 />
+
             </svg>
 
-            <span class="social-name">TELEGRAM</span>
+            <span class="social-name">
+                TELEGRAM
+            </span>
 
         </a>
+
 
         <!-- DISCORD -->
 
@@ -1431,10 +1702,14 @@ footer {
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
             >
+
                 <path d="M19.54 5.32A16.9 16.9 0 0 0 15.47 4l-.5 1.02a15.5 15.5 0 0 0-5.94 0L8.53 4a16.9 16.9 0 0 0-4.07 1.32C1.88 9.1 1.18 12.8 1.53 16.45a16.8 16.8 0 0 0 5.01 2.54l1.22-1.67a10.3 10.3 0 0 1-1.92-.91l.47-.36c3.7 1.72 7.72 1.72 11.38 0l.47.36c-.61.36-1.25.66-1.92.91l1.22 1.67a16.8 16.8 0 0 0 5.01-2.54c.41-4.23-.7-7.89-2.93-11.13ZM8.34 14.14c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Zm7.32 0c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Z"/>
+
             </svg>
 
-            <span class="social-name">DISCORD</span>
+            <span class="social-name">
+                DISCORD
+            </span>
 
         </a>
 
@@ -1442,33 +1717,43 @@ footer {
 
 </aside>
 
-<!-- =========================
-     HERO
-========================= -->
+
+<!-- =================================
+     MAIN
+================================= -->
 
 <main>
 
-<section class="hero" id="home">
 
-    <div class="hero-image"></div>
+<!-- =================================
+     HERO
+================================= -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <div class="hero-banner"></div>
+
 
     <div class="hero-content">
 
         <h1 class="hero-title">
 
-            <span class="hero-line orange-line">
+            <span class="hero-line">
                 ИГРАЙ В
             </span>
 
-            <span class="hero-line orange-line">
+            <span class="hero-line">
                 РОССИЮ
             </span>
 
-            <span class="hero-line orange-line">
+            <span class="hero-line">
                 НА СВОЕМ
             </span>
 
-            <span class="hero-line orange-line">
+            <span class="hero-line">
                 СМАРТФОНЕ
             </span>
 
@@ -1478,20 +1763,31 @@ footer {
 
         </h1>
 
+
         <p class="hero-description">
-            Погрузись в атмосферу настоящей России вместе с
-            UFA ROLE PLAY. Создавай свою историю, развивай персонажа,
-            работай, покупай автомобили и становись частью большого
-            игрового мира.
+
+            Погрузись в атмосферу настоящей России
+            вместе с UFA ROLE PLAY. Создавай свою
+            историю, развивай персонажа, работай,
+            покупай автомобили и становись частью
+            большого игрового мира.
+
         </p>
+
 
         <div class="hero-buttons">
 
-            <a href="#launcher" class="btn btn-orange">
+            <a
+                href="#launcher"
+                class="btn btn-orange"
+            >
                 НАЧАТЬ ИГРАТЬ
             </a>
 
-            <a href="#systems" class="btn btn-dark">
+            <a
+                href="#systems"
+                class="btn btn-dark"
+            >
                 УЗНАТЬ БОЛЬШЕ
             </a>
 
@@ -1501,9 +1797,10 @@ footer {
 
 </section>
 
-<!-- =========================
-     MAIN PROJECT PHOTO
-========================= -->
+
+<!-- =================================
+     MAIN PROJECT IMAGE
+================================= -->
 
 <section class="section reveal">
 
@@ -1518,11 +1815,15 @@ footer {
 
 </section>
 
-<!-- =========================
-     SYSTEMS
-========================= -->
 
-<section class="section" id="systems">
+<!-- =================================
+     SYSTEMS
+================================= -->
+
+<section
+    class="section"
+    id="systems"
+>
 
     <div class="section-head reveal">
 
@@ -1531,19 +1832,24 @@ footer {
         </div>
 
         <h2 class="section-title">
-            Почему нужно играть<br>
+            Почему нужно играть
             на UFA ROLE PLAY?
         </h2>
 
         <p class="section-description">
-            Здесь каждый игрок может создать собственную историю.
-            Развивай своего персонажа, знакомься с другими игроками,
-            приобретай имущество и просто получай удовольствие от игры.
+
+            Здесь каждый игрок может создать собственную
+            историю. Развивай своего персонажа, знакомься
+            с другими игроками, приобретай имущество
+            и просто получай удовольствие от игры.
+
         </p>
 
     </div>
 
+
     <div class="system-grid">
+
 
         <!-- FAMILY -->
 
@@ -1570,13 +1876,15 @@ footer {
                 </h3>
 
                 <p>
-                    Создавай свою семью, объединяйся с друзьями
-                    и развивай собственное игровое сообщество.
+                    Создавай свою семью, объединяйся
+                    с друзьями и развивай собственное
+                    игровое сообщество.
                 </p>
 
             </div>
 
         </article>
+
 
         <!-- CARS -->
 
@@ -1587,7 +1895,7 @@ footer {
                 <img
                     loading="lazy"
                     src="https://www.dropbox.com/scl/fi/3b0apd859rakwcf11w7t8/Photo-28.09.2026-19-02-27-2.jpg?rlkey=r3ji4ynrd06wmvygpsicno57w&st=5ylli2uk&raw=1"
-                    alt="Автосалон UFA ROLE PLAY"
+                    alt="Автомобили"
                 >
 
             </div>
@@ -1603,14 +1911,16 @@ footer {
                 </h3>
 
                 <p>
-                    Выбирай автомобили в большом автосалоне,
-                    покупай понравившуюся машину и отправляйся
-                    навстречу новым приключениям.
+                    Выбирай автомобили в большом
+                    автосалоне, покупай понравившуюся
+                    машину и отправляйся навстречу
+                    новым приключениям.
                 </p>
 
             </div>
 
         </article>
+
 
         <!-- MUSIC -->
 
@@ -1637,8 +1947,9 @@ footer {
                 </h3>
 
                 <p>
-                    Просто катайся по городу, включай любимую музыку
-                    и наслаждайся атмосферой игрового мира.
+                    Просто катайся по городу, включай
+                    любимую музыку и наслаждайся
+                    атмосферой игрового мира.
                 </p>
 
             </div>
@@ -1646,6 +1957,7 @@ footer {
         </article>
 
     </div>
+
 
     <!-- MORE -->
 
@@ -1656,24 +1968,32 @@ footer {
         </h3>
 
         <p>
-            На UFA ROLE PLAY тебя ждёт гораздо больше возможностей:
-            система доната, организации, разнообразные работы,
-            развитие персонажа, транспорт, экономика и множество
-            других игровых механик. Проект постоянно развивается,
+
+            На UFA ROLE PLAY тебя ждёт гораздо больше
+            возможностей: система доната, организации,
+            разнообразные работы, развитие персонажа,
+            транспорт, экономика и множество других
+            игровых механик. Проект постоянно развивается,
             поэтому впереди тебя ждёт ещё больше контента.
+
         </p>
 
     </div>
 
 </section>
 
-<!-- =========================
-     LAUNCHER
-========================= -->
 
-<section class="launcher" id="launcher">
+<!-- =================================
+     LAUNCHER
+================================= -->
+
+<section
+    class="launcher"
+    id="launcher"
+>
 
     <div class="launcher-box">
+
 
         <div class="launcher-content reveal-left">
 
@@ -1687,11 +2007,13 @@ footer {
             </h2>
 
             <p>
+
                 Играть на нашем проекте очень просто.
                 Достаточно скачать наш лаунчер, который сам
                 установит все необходимые компоненты игры.
                 Останется только ввести свой игровой ник
                 и нажать на кнопку "Играть".
+
             </p>
 
             <a
@@ -1703,6 +2025,7 @@ footer {
             </a>
 
         </div>
+
 
         <div class="launcher-visual reveal-right">
 
@@ -1716,9 +2039,10 @@ footer {
 
 </section>
 
-<!-- =========================
+
+<!-- =================================
      SERVER
-========================= -->
+================================= -->
 
 <section class="server-section">
 
@@ -1747,6 +2071,7 @@ footer {
 
         </div>
 
+
         <div class="server-online">
 
             <strong>
@@ -1763,9 +2088,10 @@ footer {
 
 </section>
 
-<!-- =========================
+
+<!-- =================================
      SOCIAL
-========================= -->
+================================= -->
 
 <section class="social-section">
 
@@ -1780,14 +2106,18 @@ footer {
         </h2>
 
         <p class="section-description">
+
             Подписывайся на наши социальные сети,
             чтобы не пропускать обновления проекта,
             новости, объявления и важные события.
+
         </p>
 
     </div>
 
+
     <div class="social-grid">
+
 
         <!-- TELEGRAM -->
 
@@ -1803,7 +2133,12 @@ footer {
                 fill="#26a5e4"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <path d="M21.6 3.2L18.3 20.1C18.05 21.3 17.36 21.6 16.4 21.05L11.05 17.1L8.47 19.58C8.18 19.87 7.94 20.11 7.35 20.11L7.73 14.66L17.65 5.7C18.08 5.32 17.56 5.11 16.99 5.49L4.72 13.22L-.56 11.57C-1.71 11.21-1.73 10.42-.32 9.87L20.34 1.9C21.3 1.55 22.13 2.12 21.6 3.2Z" transform="translate(1 0)"/>
+
+                <path
+                    d="M21.6 3.2L18.3 20.1C18.05 21.3 17.36 21.6 16.4 21.05L11.05 17.1L8.47 19.58C8.18 19.87 7.94 20.11 7.35 20.11L7.73 14.66L17.65 5.7C18.08 5.32 17.56 5.11 16.99 5.49L4.72 13.22L-.56 11.57C-1.71 11.21-1.73 10.42-.32 9.87L20.34 1.9C21.3 1.55 22.13 2.12 21.6 3.2Z"
+                    transform="translate(1 0)"
+                />
+
             </svg>
 
             <div class="social-card-content">
@@ -1824,6 +2159,7 @@ footer {
 
         </a>
 
+
         <!-- DISCORD -->
 
         <a
@@ -1838,7 +2174,9 @@ footer {
                 fill="#5865F2"
                 xmlns="http://www.w3.org/2000/svg"
             >
+
                 <path d="M19.54 5.32A16.9 16.9 0 0 0 15.47 4l-.5 1.02a15.5 15.5 0 0 0-5.94 0L8.53 4a16.9 16.9 0 0 0-4.07 1.32C1.88 9.1 1.18 12.8 1.53 16.45a16.8 16.8 0 0 0 5.01 2.54l1.22-1.67a10.3 10.3 0 0 1-1.92-.91l.47-.36c3.7 1.72 7.72 1.72 11.38 0l.47.36c-.61.36-1.25.66-1.92.91l1.22 1.67a16.8 16.8 0 0 0 5.01-2.54c.41-4.23-.7-7.89-2.93-11.13ZM8.34 14.14c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Zm7.32 0c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Z"/>
+
             </svg>
 
             <div class="social-card-content">
@@ -1865,9 +2203,10 @@ footer {
 
 </main>
 
-<!-- =========================
+
+<!-- =================================
      FOOTER
-========================= -->
+================================= -->
 
 <footer>
 
@@ -1881,122 +2220,190 @@ footer {
 
 </footer>
 
+
 <script>
 
-/* =========================
+/* =================================
    MENU
-========================= */
+================================= */
 
-const menuButton = document.getElementById("menuButton");
-const sideMenu = document.getElementById("sideMenu");
-const menuOverlay = document.getElementById("menuOverlay");
+const menuButton =
+    document.getElementById("menuButton");
+
+const sideMenu =
+    document.getElementById("sideMenu");
+
+const menuOverlay =
+    document.getElementById("menuOverlay");
+
 
 function openMenu() {
+
     menuButton.classList.add("active");
+
     sideMenu.classList.add("active");
+
     menuOverlay.classList.add("active");
+
     document.body.style.overflow = "hidden";
+
 }
+
 
 function closeMenu() {
+
     menuButton.classList.remove("active");
+
     sideMenu.classList.remove("active");
+
     menuOverlay.classList.remove("active");
+
     document.body.style.overflow = "";
+
 }
 
-menuButton.addEventListener("click", () => {
 
-    if (sideMenu.classList.contains("active")) {
-        closeMenu();
-    } else {
-        openMenu();
+menuButton.addEventListener(
+    "click",
+    () => {
+
+        if (
+            sideMenu.classList.contains("active")
+        ) {
+
+            closeMenu();
+
+        } else {
+
+            openMenu();
+
+        }
+
     }
-
-});
-
-menuOverlay.addEventListener("click", closeMenu);
-
-document.querySelectorAll(".menu-link").forEach(link => {
-
-    link.addEventListener("click", () => {
-        closeMenu();
-    });
-
-});
-
-/* =========================
-   SCROLL ANIMATION
-========================= */
-
-const revealElements = document.querySelectorAll(
-    ".reveal, .reveal-left, .reveal-right"
 );
 
-const observer = new IntersectionObserver(
 
-    (entries) => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("active");
-
-                observer.unobserve(entry.target);
-
-            }
-
-        });
-
-    },
-
-    {
-        threshold: 0.12
-    }
-
+menuOverlay.addEventListener(
+    "click",
+    closeMenu
 );
 
-revealElements.forEach(element => {
-    observer.observe(element);
-});
 
-/* =========================
-   ESCAPE CLOSE MENU
-========================= */
+document
+    .querySelectorAll(".menu-link")
+    .forEach(link => {
 
-document.addEventListener("keydown", (event) => {
-
-    if (event.key === "Escape") {
-        closeMenu();
-    }
-
-});
-
-/* =========================
-   SMOOTH ANCHOR
-========================= */
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener("click", function(event) {
-
-        const target = document.querySelector(
-            this.getAttribute("href")
+        link.addEventListener(
+            "click",
+            closeMenu
         );
 
-        if (!target) return;
-
-        event.preventDefault();
-
-        target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
     });
 
-});
+
+/* =================================
+   SCROLL REVEAL
+================================= */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal, .reveal-left, .reveal-right"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (
+                    entry.isIntersecting
+                ) {
+
+                    entry.target
+                        .classList
+                        .add("active");
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold: 0.12
+        }
+
+    );
+
+
+revealElements.forEach(
+    element => {
+
+        observer.observe(element);
+
+    }
+);
+
+
+/* =================================
+   ESC
+================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =================================
+   SMOOTH ANCHORS
+================================= */
+
+document
+    .querySelectorAll(
+        'a[href^="#"]'
+    )
+    .forEach(anchor => {
+
+        anchor.addEventListener(
+            "click",
+            function(event) {
+
+                const target =
+                    document.querySelector(
+                        this.getAttribute("href")
+                    );
+
+                if (!target) return;
+
+                event.preventDefault();
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+        );
+
+    });
 
 </script>
 
