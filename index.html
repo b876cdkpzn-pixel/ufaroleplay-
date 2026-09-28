@@ -1,2092 +1,1378 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>UFA ROLE PLAY | Официальный сайт</title>
-
-    <meta
-        name="description"
-        content="UFA ROLE PLAY — современный Role Play проект на смартфоне."
-    >
-
-    <!-- =========================
-         FONTS
-    ========================== -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap"
-        rel="stylesheet"
-    >
-
-
-    <style>
-
-        /* =====================================================
-           RESET
-        ===================================================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #050505;
-            color: #ffffff;
-            font-family: "Inter", Arial, sans-serif;
-            overflow-x: hidden;
-        }
-
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        img {
-            display: block;
-            width: 100%;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button {
-            font-family: inherit;
-        }
-
-
-        /* =====================================================
-           COLORS
-        ===================================================== */
-
-        :root {
-            --orange: #ff6a00;
-            --orange-light: #ff8a2a;
-            --orange-dark: #c94300;
-
-            --black: #050505;
-            --black-2: #080808;
-            --black-3: #0d0d0d;
-
-            --white: #ffffff;
-            --gray: #929292;
-
-            --border: rgba(255, 255, 255, 0.08);
-            --orange-border: rgba(255, 106, 0, 0.25);
-        }
-
-
-        /* =====================================================
-           SCROLLBAR
-        ===================================================== */
-
-        ::-webkit-scrollbar {
-            width: 7px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #050505;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--orange);
-            border-radius: 20px;
-        }
-
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-
-            width: 100%;
-
-            z-index: 9999;
-
-            padding: 22px 5%;
-
-            transition: .35s ease;
-        }
-
-        .header.scrolled {
-            background: rgba(5, 5, 5, .86);
-            backdrop-filter: blur(18px);
-
-            border-bottom:
-                1px solid rgba(255, 255, 255, .06);
-
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-
-        .header-inner {
-            max-width: 1400px;
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-
-        /* LOGO TEXT */
-
-        .brand {
-            font-family: "Montserrat", sans-serif;
-
-            font-size: 20px;
-            font-weight: 900;
-
-            letter-spacing: 1px;
-
-            z-index: 10001;
-        }
-
-        .brand span {
-            color: var(--orange);
-        }
-
-
-        /* =====================================================
-           BURGER
-        ===================================================== */
-
-        .burger {
-            width: 48px;
-            height: 48px;
-
-            border: 1px solid rgba(255, 255, 255, .1);
-            border-radius: 10px;
-
-            background: rgba(15, 15, 15, .85);
-
-            display: flex;
-            flex-direction: column;
-
-            justify-content: center;
-            align-items: center;
-
-            gap: 5px;
-
-            cursor: pointer;
-
-            transition: .3s ease;
-
-            position: relative;
-            z-index: 10001;
-        }
-
-        .burger:hover {
-            border-color: var(--orange);
-
-            background:
-                rgba(255, 106, 0, .1);
-        }
-
-        .burger span {
-            width: 20px;
-            height: 2px;
-
-            background: white;
-
-            border-radius: 5px;
-
-            transition: .3s ease;
-        }
-
-        .burger.active span:nth-child(1) {
-            transform:
-                translateY(7px)
-                rotate(45deg);
-        }
-
-        .burger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .burger.active span:nth-child(3) {
-            transform:
-                translateY(-7px)
-                rotate(-45deg);
-        }
-
-
-        /* =====================================================
-           SIDE MENU
-        ===================================================== */
-
-        .menu-overlay {
-            position: fixed;
-
-            inset: 0;
-
-            background:
-                rgba(0, 0, 0, .65);
-
-            backdrop-filter: blur(5px);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transition: .35s ease;
-
-            z-index: 9997;
-        }
-
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .side-menu {
-            position: fixed;
-
-            top: 0;
-            right: 0;
-
-            width: min(420px, 88vw);
-            height: 100vh;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #101010,
-                    #050505
-                );
-
-            border-left:
-                1px solid rgba(255, 106, 0, .18);
-
-            z-index: 9998;
-
-            transform: translateX(100%);
-
-            transition:
-                transform .45s
-                cubic-bezier(.77,0,.18,1);
-
-            padding: 120px 35px 35px;
-
-            display: flex;
-            flex-direction: column;
-        }
-
-        .side-menu.active {
-            transform: translateX(0);
-        }
-
-        .menu-title {
-            color: var(--orange);
-
-            font-size: 11px;
-            font-weight: 900;
-
-            letter-spacing: 3px;
-
-            text-transform: uppercase;
-
-            margin-bottom: 35px;
-        }
-
-        .menu-links {
-            display: flex;
-            flex-direction: column;
-
-            gap: 8px;
-        }
-
-        .menu-link {
-            padding: 18px 17px;
-
-            border-radius: 10px;
-
-            font-family: "Montserrat", sans-serif;
-
-            font-size: 18px;
-            font-weight: 800;
-
-            transition: .25s ease;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .menu-link::after {
-            content: "→";
-
-            color: var(--orange);
-
-            transform:
-                translateX(-5px);
-
-            transition: .25s ease;
-        }
-
-        .menu-link:hover {
-            background:
-                rgba(255, 106, 0, .08);
-
-            color: var(--orange);
-        }
-
-        .menu-link:hover::after {
-            transform:
-                translateX(0);
-        }
-
-        .menu-socials {
-            margin-top: auto;
-
-            padding-top: 25px;
-
-            border-top:
-                1px solid rgba(255,255,255,.07);
-
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-
-            gap: 10px;
-        }
-
-        .social-menu {
-            min-height: 54px;
-
-            border:
-                1px solid rgba(255,255,255,.08);
-
-            border-radius: 10px;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            gap: 9px;
-
-            font-size: 13px;
-            font-weight: 800;
-
-            transition: .3s ease;
-        }
-
-        .social-menu:hover {
-            background:
-                var(--orange);
-
-            border-color:
-                var(--orange);
-
-            color: #fff;
-
-            transform:
-                translateY(-3px);
-        }
-
-
-        /* =====================================================
-           HERO
-        ===================================================== */
-
-        .hero {
-            min-height: 100vh;
-
-            position: relative;
-
-            display: flex;
-            align-items: center;
-
-            overflow: hidden;
-
-            background:
-                #050505;
-        }
-
-        .hero-image {
-            position: absolute;
-
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            z-index: 0;
-        }
-
-        .hero::before {
-            content: "";
-
-            position: absolute;
-
-            inset: 0;
-
-            z-index: 1;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(3,3,3,.98) 0%,
-                    rgba(3,3,3,.88) 30%,
-                    rgba(3,3,3,.48) 65%,
-                    rgba(3,3,3,.82) 100%
-                );
-        }
-
-        .hero::after {
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-            right: 0;
-            bottom: 0;
-
-            height: 220px;
-
-            z-index: 2;
-
-            background:
-                linear-gradient(
-                    transparent,
-                    #050505
-                );
-        }
-
-        .hero-content {
-            position: relative;
-
-            z-index: 3;
-
-            width: 100%;
-
-            max-width: 1400px;
-
-            margin: auto;
-
-            padding:
-                150px 5%
-                100px;
-        }
-
-        .hero-small {
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 9px;
-
-            padding:
-                9px 13px;
-
-            border:
-                1px solid
-                rgba(255, 106, 0, .35);
-
-            border-radius: 6px;
-
-            background:
-                rgba(255, 106, 0, .07);
-
-            color:
-                var(--orange-light);
-
-            font-size: 11px;
-
-            font-weight: 800;
-
-            letter-spacing: 2px;
-
-            text-transform:
-                uppercase;
-
-            margin-bottom: 25px;
-        }
-
-        .hero-small::before {
-            content: "";
-
-            width: 7px;
-            height: 7px;
-
-            border-radius: 50%;
-
-            background:
-                var(--orange);
-
-            box-shadow:
-                0 0 15px
-                var(--orange);
-        }
-
-        .hero-title {
-            max-width: 920px;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                clamp(42px, 7vw, 88px);
-
-            line-height:
-                .98;
-
-            font-weight: 900;
-
-            letter-spacing:
-                -3px;
-
-            text-transform:
-                uppercase;
-        }
-
-        .hero-title .orange {
-            color:
-                var(--orange);
-
-            text-shadow:
-                0 0 45px
-                rgba(255, 106, 0, .18);
-        }
-
-        .hero-title .black-word {
-            color: white;
-        }
-
-        .hero-description {
-            max-width: 650px;
-
-            margin-top: 28px;
-
-            color:
-                rgba(255,255,255,.64);
-
-            font-size: 16px;
-
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            margin-top: 35px;
-
-            display: flex;
-
-            gap: 12px;
-
-            flex-wrap: wrap;
-        }
-
-        .button {
-            min-height: 55px;
-
-            padding:
-                0 25px;
-
-            border-radius: 8px;
-
-            display: inline-flex;
-
-            align-items: center;
-            justify-content: center;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size: 12px;
-
-            font-weight: 900;
-
-            text-transform:
-                uppercase;
-
-            transition: .3s ease;
-
-            cursor: pointer;
-        }
-
-        .button-orange {
-            color: #fff;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff7b18,
-                    #d84700
-                );
-
-            box-shadow:
-                0 12px 35px
-                rgba(255, 90, 0, .2);
-        }
-
-        .button-orange:hover {
-            transform:
-                translateY(-3px);
-
-            box-shadow:
-                0 18px 45px
-                rgba(255, 90, 0, .3);
-        }
-
-        .button-dark {
-            border:
-                1px solid
-                rgba(255,255,255,.13);
-
-            background:
-                rgba(255,255,255,.04);
-
-            backdrop-filter:
-                blur(10px);
-        }
-
-        .button-dark:hover {
-            border-color:
-                var(--orange);
-
-            color:
-                var(--orange);
-
-            transform:
-                translateY(-3px);
-        }
-
-
-        /* =====================================================
-           MAIN PHOTO
-        ===================================================== */
-
-        .main-photo-section {
-            position: relative;
-
-            margin-top: -45px;
-
-            z-index: 10;
-
-            padding:
-                0 5% 100px;
-        }
-
-        .main-photo {
-            max-width: 1400px;
-
-            margin: auto;
-
-            position: relative;
-
-            overflow: hidden;
-
-            border-radius: 18px;
-
-            border:
-                1px solid
-                rgba(255,106,0,.22);
-
-            box-shadow:
-                0 30px 100px
-                rgba(0,0,0,.6);
-        }
-
-        .main-photo img {
-            width: 100%;
-
-            height:
-                min(650px, 60vw);
-
-            min-height: 300px;
-
-            object-fit: cover;
-        }
-
-        .main-photo::after {
-            content: "";
-
-            position: absolute;
-
-            inset: 0;
-
-            background:
-                linear-gradient(
-                    0deg,
-                    rgba(0,0,0,.55),
-                    transparent 50%
-                );
-
-            pointer-events:
-                none;
-        }
-
-        .photo-caption {
-            position: absolute;
-
-            left: 30px;
-            bottom: 25px;
-
-            z-index: 2;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size: 13px;
-
-            font-weight: 900;
-
-            letter-spacing: 2px;
-
-            text-transform:
-                uppercase;
-        }
-
-        .photo-caption span {
-            color:
-                var(--orange);
-        }
-
-
-        /* =====================================================
-           GENERAL SECTIONS
-        ===================================================== */
-
-        section {
-            padding:
-                110px 5%;
-        }
-
-        .container {
-            max-width:
-                1400px;
-
-            margin:
-                auto;
-        }
-
-        .section-label {
-            color:
-                var(--orange);
-
-            font-size:
-                10px;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                3px;
-
-            text-transform:
-                uppercase;
-
-            margin-bottom:
-                13px;
-        }
-
-        .section-title {
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                clamp(34px, 5vw, 62px);
-
-            line-height:
-                1;
-
-            font-weight:
-                900;
-
-            text-transform:
-                uppercase;
-
-            letter-spacing:
-                -2px;
-        }
-
-        .section-title span {
-            color:
-                var(--orange);
-        }
-
-        .section-description {
-            max-width:
-                720px;
-
-            margin-top:
-                18px;
-
-            color:
-                rgba(255,255,255,.52);
-
-            line-height:
-                1.7;
-
-            font-size:
-                15px;
-        }
-
-
-        /* =====================================================
-           WHY PLAY
-        ===================================================== */
-
-        .why {
-            background:
-                radial-gradient(
-                    circle at 80% 30%,
-                    rgba(255,106,0,.08),
-                    transparent 30%
-                ),
-                #050505;
-        }
-
-        .systems-grid {
-            margin-top:
-                55px;
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap:
-                18px;
-        }
-
-        .system-card {
-            position:
-                relative;
-
-            overflow:
-                hidden;
-
-            background:
-                #0b0b0b;
-
-            border:
-                1px solid
-                rgba(255,255,255,.07);
-
-            border-radius:
-                14px;
-
-            transition:
-                .35s ease;
-        }
-
-        .system-card:hover {
-            transform:
-                translateY(-7px);
-
-            border-color:
-                rgba(255,106,0,.4);
-
-            box-shadow:
-                0 20px 60px
-                rgba(0,0,0,.4);
-        }
-
-        .system-image {
-            height:
-                245px;
-
-            overflow:
-                hidden;
-        }
-
-        .system-image img {
-            width:
-                100%;
-
-            height:
-                100%;
-
-            object-fit:
-                cover;
-
-            transition:
-                .55s ease;
-        }
-
-        .system-card:hover
-        .system-image img {
-            transform:
-                scale(1.07);
-        }
-
-        .system-info {
-            padding:
-                24px;
-        }
-
-        .system-number {
-            color:
-                var(--orange);
-
-            font-size:
-                10px;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                2px;
-        }
-
-        .system-info h3 {
-            margin-top:
-                9px;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                20px;
-
-            font-weight:
-                900;
-
-            text-transform:
-                uppercase;
-        }
-
-        .system-info p {
-            margin-top:
-                10px;
-
-            color:
-                rgba(255,255,255,.47);
-
-            font-size:
-                13px;
-
-            line-height:
-                1.65;
-        }
-
-
-        /* =====================================================
-           MORE SYSTEMS
-        ===================================================== */
-
-        .more-systems {
-            margin-top:
-                70px;
-
-            padding:
-                55px;
-
-            border:
-                1px solid
-                rgba(255,106,0,.15);
-
-            border-radius:
-                18px;
-
-            background:
-                linear-gradient(
-                    130deg,
-                    rgba(255,106,0,.08),
-                    rgba(255,255,255,.02)
-                );
-
-            position:
-                relative;
-
-            overflow:
-                hidden;
-        }
-
-        .more-systems::after {
-            content:
-                "";
-
-            position:
-                absolute;
-
-            width:
-                300px;
-
-            height:
-                300px;
-
-            right:
-                -120px;
-
-            top:
-                -150px;
-
-            border-radius:
-                50%;
-
-            background:
-                rgba(255,106,0,.12);
-
-            filter:
-                blur(70px);
-        }
-
-        .more-systems h3 {
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                clamp(28px, 4vw, 45px);
-
-            text-transform:
-                uppercase;
-        }
-
-        .more-systems h3 span {
-            color:
-                var(--orange);
-        }
-
-        .more-systems p {
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            max-width:
-                750px;
-
-            margin-top:
-                15px;
-
-            color:
-                rgba(255,255,255,.52);
-
-            line-height:
-                1.7;
-        }
-
-
-        /* =====================================================
-           LAUNCHER
-        ===================================================== */
-
-        .launcher {
-            background:
-                #080808;
-        }
-
-        .launcher-box {
-            position:
-                relative;
-
-            overflow:
-                hidden;
-
-            padding:
-                75px;
-
-            border-radius:
-                20px;
-
-            border:
-                1px solid
-                rgba(255,106,0,.2);
-
-            background:
-                linear-gradient(
-                    120deg,
-                    rgba(255,106,0,.13),
-                    rgba(255,255,255,.025)
-                );
-        }
-
-        .launcher-box::before {
-            content:
-                "";
-
-            position:
-                absolute;
-
-            width:
-                450px;
-
-            height:
-                450px;
-
-            right:
-                -180px;
-
-            bottom:
-                -260px;
-
-            border-radius:
-                50%;
-
-            background:
-                rgba(255,106,0,.13);
-
-            filter:
-                blur(70px);
-        }
-
-        .launcher-title {
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                clamp(35px, 5vw, 62px);
-
-            line-height:
-                1;
-
-            text-transform:
-                uppercase;
-        }
-
-        .launcher-title span {
-            color:
-                var(--orange);
-        }
-
-        .launcher-text {
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            max-width:
-                760px;
-
-            margin-top:
-                20px;
-
-            color:
-                rgba(255,255,255,.55);
-
-            line-height:
-                1.75;
-
-            font-size:
-                15px;
-        }
-
-        .launcher-button {
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            margin-top:
-                30px;
-        }
-
-
-        /* =====================================================
-           SERVER
-        ===================================================== */
-
-        .servers {
-            background:
-                #050505;
-        }
-
-        .server-head {
-            margin-bottom:
-                45px;
-        }
-
-        .server-card {
-            position:
-                relative;
-
-            min-height:
-                300px;
-
-            border-radius:
-                18px;
-
-            overflow:
-                hidden;
-
-            border:
-                1px solid
-                rgba(255,106,0,.25);
-
-            background:
-                #101010;
-
-            box-shadow:
-                0 25px 80px
-                rgba(0,0,0,.45);
-        }
-
-        .server-bg {
-            position:
-                absolute;
-
-            inset:
-                0;
-
-            width:
-                100%;
-
-            height:
-                100%;
-
-            object-fit:
-                cover;
-
-            opacity:
-                .42;
-
-            filter:
-                saturate(.85);
-        }
-
-        .server-card::before {
-            content:
-                "";
-
-            position:
-                absolute;
-
-            inset:
-                0;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(0,0,0,.96),
-                    rgba(0,0,0,.67),
-                    rgba(0,0,0,.5)
-                );
-
-            z-index:
-                1;
-        }
-
-        .server-content {
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            min-height:
-                300px;
-
-            padding:
-                45px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                30px;
-        }
-
-        .server-left {
-            max-width:
-                650px;
-        }
-
-        .server-tag {
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            gap:
-                8px;
-
-            color:
-                var(--orange);
-
-            font-size:
-                10px;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                2px;
-
-            text-transform:
-                uppercase;
-        }
-
-        .server-tag::before {
-            content:
-                "";
-
-            width:
-                7px;
-
-            height:
-                7px;
-
-            background:
-                var(--orange);
-
-            border-radius:
-                50%;
-
-            box-shadow:
-                0 0 12px
-                var(--orange);
-        }
-
-        .server-name {
-            margin-top:
-                13px;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                clamp(35px, 5vw, 58px);
-
-            font-weight:
-                900;
-
-            line-height:
-                1;
-
-            text-transform:
-                uppercase;
-        }
-
-        .server-name span {
-            color:
-                var(--orange);
-        }
-
-        .server-ip {
-            margin-top:
-                17px;
-
-            color:
-                rgba(255,255,255,.5);
-
-            font-size:
-                13px;
-        }
-
-        .server-ip strong {
-            color:
-                white;
-        }
-
-        .server-right {
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                15px;
-        }
-
-        .online-box {
-            min-width:
-                155px;
-
-            padding:
-                20px;
-
-            border:
-                1px solid
-                rgba(255,255,255,.09);
-
-            border-radius:
-                12px;
-
-            background:
-                rgba(0,0,0,.45);
-
-            backdrop-filter:
-                blur(10px);
-        }
-
-        .online-label {
-            color:
-                rgba(255,255,255,.4);
-
-            font-size:
-                9px;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                2px;
-
-            text-transform:
-                uppercase;
-        }
-
-        .online-number {
-            margin-top:
-                7px;
-
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                30px;
-
-            font-weight:
-                900;
-        }
-
-        .online-number span {
-            color:
-                var(--orange);
-        }
-
-        .online-status {
-            margin-top:
-                5px;
-
-            color:
-                #69d17d;
-
-            font-size:
-                10px;
-
-            font-weight:
-                700;
-        }
-
-
-        /* =====================================================
-           SOCIAL
-        ===================================================== */
-
-        .social {
-            padding-top:
-                90px;
-
-            padding-bottom:
-                100px;
-
-            background:
-                #080808;
-        }
-
-        .social-box {
-            text-align:
-                center;
-        }
-
-        .social-box h2 {
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-size:
-                clamp(35px, 5vw, 62px);
-
-            text-transform:
-                uppercase;
-        }
-
-        .social-box h2 span {
-            color:
-                var(--orange);
-        }
-
-        .social-box p {
-            max-width:
-                600px;
-
-            margin:
-                18px auto 0;
-
-            color:
-                rgba(255,255,255,.5);
-
-            line-height:
-                1.7;
-        }
-
-        .social-buttons {
-            margin-top:
-                35px;
-
-            display:
-                flex;
-
-            justify-content:
-                center;
-
-            gap:
-                13px;
-
-            flex-wrap:
-                wrap;
-        }
-
-        .social-button {
-            min-width:
-                190px;
-
-            min-height:
-                60px;
-
-            padding:
-                0 25px;
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius:
-                11px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            gap:
-                11px;
-
-            font-size:
-                13px;
-
-            font-weight:
-                900;
-
-            transition:
-                .3s ease;
-
-            background:
-                #0e0e0e;
-        }
-
-        .social-button svg {
-            width:
-                21px;
-
-            height:
-                21px;
-
-            fill:
-                currentColor;
-        }
-
-        .social-button.telegram:hover {
-            background:
-                #229ed9;
-
-            border-color:
-                #229ed9;
-
-            transform:
-                translateY(-4px);
-        }
-
-        .social-button.discord:hover {
-            background:
-                #5865f2;
-
-            border-color:
-                #5865f2;
-
-            transform:
-                translateY(-4px);
-        }
-
-
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        footer {
-            padding:
-                35px 5%;
-
-            background:
-                #030303;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,.06);
-        }
-
-        .footer-inner {
-            max-width:
-                1400px;
-
-            margin:
-                auto;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                20px;
-        }
-
-        .footer-brand {
-            font-family:
-                "Montserrat",
-                sans-serif;
-
-            font-weight:
-                900;
-
-            font-size:
-                14px;
-        }
-
-        .footer-brand span {
-            color:
-                var(--orange);
-        }
-
-        .footer-copy {
-            color:
-                rgba(255,255,255,.28);
-
-            font-size:
-                11px;
-        }
-
-        .footer-top {
-            color:
-                var(--orange);
-
-            font-size:
-                11px;
-
-            font-weight:
-                900;
-        }
-
-
-        /* =====================================================
-           REVEAL
-        ===================================================== */
-
-        .reveal {
-            opacity:
-                0;
-
-            transform:
-                translateY(35px);
-
-            transition:
-                opacity .8s ease,
-                transform .8s ease;
-        }
-
-        .reveal.active {
-            opacity:
-                1;
-
-            transform:
-                translateY(0);
-        }
-
-
-        /* =====================================================
-           FLOATING ORANGE LIGHT
-        ===================================================== */
-
-        .orange-light {
-            position:
-                fixed;
-
-            width:
-                350px;
-
-            height:
-                350px;
-
-            border-radius:
-                50%;
-
-            background:
-                rgba(255,106,0,.07);
-
-            filter:
-                blur(90px);
-
-            pointer-events:
-                none;
-
-            z-index:
-                -1;
-
-            animation:
-                floatingLight 8s
-                ease-in-out
-                infinite alternate;
-        }
-
-        .light-1 {
-            top:
-                10%;
-
-            right:
-                -180px;
-        }
-
-        .light-2 {
-            bottom:
-                20%;
-
-            left:
-                -200px;
-
-            animation-delay:
-                2s;
-        }
-
-        @keyframes floatingLight {
-
-            from {
-                transform:
-                    translateY(-20px)
-                    scale(1);
-            }
-
-            to {
-                transform:
-                    translateY(30px)
-                    scale(1.12);
-            }
-        }
-
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 900px) {
-
-            .systems-grid {
-                grid-template-columns:
-                    1fr 1fr;
-            }
-
-            .server-content {
-                align-items:
-                    flex-start;
-
-                flex-direction:
-                    column;
-            }
-
-            .server-right {
-                width:
-                    100%;
-            }
-
-            .online-box {
-                width:
-                    100%;
-            }
-
-        }
-
-
-        @media (max-width: 650px) {
-
-            .header {
-                padding:
-                    15px 5%;
-            }
-
-            .brand {
-                font-size:
-                    16px;
-            }
-
-            .burger {
-                width:
-                    44px;
-
-                height:
-                    44px;
-            }
-
-            .hero {
-                min-height:
-                    820px;
-            }
-
-            .hero-content {
-                padding:
-                    140px 5% 100px;
-            }
-
-            .hero-title {
-                font-size:
-                    43px;
-
-                letter-spacing:
-                    -2px;
-            }
-
-            .hero-description {
-                font-size:
-                    14px;
-            }
-
-            .hero-buttons {
-                flex-direction:
-                    column;
-            }
-
-            .button {
-                width:
-                    100%;
-            }
-
-            .main-photo-section {
-                padding:
-                    0 5% 70px;
-            }
-
-            .main-photo img {
-                height:
-                    260px;
-            }
-
-            .photo-caption {
-                left:
-                    18px;
-
-                bottom:
-                    18px;
-
-                font-size:
-                    10px;
-            }
-
-            section {
-                padding:
-                    75px 5%;
-            }
-
-            .section-title {
-                font-size:
-                    36px;
-            }
-
-            .systems-grid {
-                grid-template-columns:
-                    1fr;
-            }
-
-            .system-image {
-                height:
-                    230px;
-            }
-
-            .more-systems {
-                padding:
-                    35px 25px;
-            }
-
-            .launcher-box {
-                padding:
-                    45px 25px;
-            }
-
-            .launcher-title {
-                font-size:
-                    37px;
-            }
-
-            .server-card {
-                min-height:
-                    430px;
-            }
-
-            .server-content {
-                min-height:
-                    430px;
-
-                padding:
-                    30px 25px;
-            }
-
-            .server-right {
-                flex-direction:
-                    column;
-            }
-
-            .online-box {
-                min-width:
-                    100%;
-            }
-
-            .social-buttons {
-                flex-direction:
-                    column;
-            }
-
-            .social-button {
-                width:
-                    100%;
-            }
-
-            .footer-inner {
-                flex-direction:
-                    column;
-
-                align-items:
-                    flex-start;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UFA ROLE PLAY — Официальный сайт</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --orange: #ff6a00;
+    --orange-light: #ff8a00;
+    --black: #050505;
+    --dark: #0b0b0b;
+    --card: #111111;
+    --white: #ffffff;
+    --gray: #a5a5a5;
+    --line: rgba(255,255,255,.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--black);
+    color: var(--white);
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: var(--orange);
+    filter: blur(180px);
+    opacity: .08;
+    border-radius: 50%;
+    top: -250px;
+    left: -250px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: #ff3d00;
+    filter: blur(180px);
+    opacity: .06;
+    border-radius: 50%;
+    right: -250px;
+    bottom: -200px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 76px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 45px;
+
+    background: rgba(5,5,5,.72);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+
+    animation: headerIn .8s ease forwards;
+}
+
+.logo {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    font-size: 21px;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+.menu-button {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 13px;
+    background: rgba(255,255,255,.04);
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    transition: .3s ease;
+}
+
+.menu-button:hover {
+    background: var(--orange);
+    border-color: var(--orange);
+    transform: rotate(3deg) scale(1.05);
+}
+
+.menu-button span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 10px;
+    background: white;
+    transition: .3s ease;
+}
+
+.menu-button.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-button.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================
+   SIDE MENU
+========================= */
+
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(5px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .35s ease;
+    z-index: 998;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 390px;
+    max-width: 90%;
+
+    height: 100vh;
+
+    padding: 110px 35px 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22,22,22,.98),
+            rgba(5,5,5,.99)
+        );
+
+    border-left: 1px solid rgba(255,106,0,.22);
+
+    transform: translateX(100%);
+    transition: transform .45s cubic-bezier(.77,0,.18,1);
+
+    z-index: 999;
+
+    box-shadow: -30px 0 80px rgba(0,0,0,.5);
+}
+
+.side-menu.active {
+    transform: translateX(0);
+}
+
+.side-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--gray);
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 19px;
+
+    border: 1px solid rgba(255,255,255,.06);
+    background: rgba(255,255,255,.025);
+    border-radius: 13px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    transform: translateX(35px);
+    opacity: 0;
+
+    transition: .3s ease;
+}
+
+.side-menu.active .menu-link {
+    animation: menuItemIn .45s ease forwards;
+}
+
+.side-menu.active .menu-link:nth-child(1) {
+    animation-delay: .08s;
+}
+
+.side-menu.active .menu-link:nth-child(2) {
+    animation-delay: .14s;
+}
+
+.side-menu.active .menu-link:nth-child(3) {
+    animation-delay: .20s;
+}
+
+.menu-link:hover {
+    background: var(--orange);
+    border-color: var(--orange);
+    transform: translateX(-5px);
+}
+
+.menu-arrow {
+    color: var(--orange);
+    font-size: 18px;
+    transition: .3s;
+}
+
+.menu-link:hover .menu-arrow {
+    color: white;
+    transform: translateX(4px);
+}
+
+/* =========================
+   SOCIAL MENU
+========================= */
+
+.menu-social-title {
+    margin-top: 38px;
+    margin-bottom: 16px;
+
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.social-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.social-menu a {
+    min-height: 85px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.07);
+
+    background: rgba(255,255,255,.025);
+
+    opacity: 0;
+    transform: translateY(20px);
+
+    transition: .3s ease;
+}
+
+.side-menu.active .social-menu a {
+    animation: socialIn .5s ease forwards;
+}
+
+.side-menu.active .social-menu a:nth-child(1) {
+    animation-delay: .30s;
+}
+
+.side-menu.active .social-menu a:nth-child(2) {
+    animation-delay: .38s;
+}
+
+.social-menu a:hover {
+    transform: translateY(-5px);
+}
+
+.social-menu .telegram:hover {
+    border-color: #26a5e4;
+    background: rgba(38,165,228,.12);
+}
+
+.social-menu .discord:hover {
+    border-color: #5865f2;
+    background: rgba(88,101,242,.12);
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.telegram .social-icon {
+    color: #26a5e4;
+}
+
+.discord .social-icon {
+    color: #5865f2;
+}
+
+.social-name {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+    padding: 150px 7% 80px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    width: 52%;
+    position: relative;
+    z-index: 3;
+}
+
+.hero-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    line-height: .94;
+    letter-spacing: -3px;
+    font-size: clamp(50px, 6.3vw, 100px);
+}
+
+.hero-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(45px);
+    animation: heroLineIn .75s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+.hero-line:nth-child(1) {
+    animation-delay: .25s;
+}
+
+.hero-line:nth-child(2) {
+    animation-delay: .37s;
+}
+
+.hero-line:nth-child(3) {
+    animation-delay: .49s;
+}
+
+.hero-line:nth-child(4) {
+    animation-delay: .61s;
+}
+
+.orange-line {
+    color: var(--orange);
+    text-shadow: 0 0 40px rgba(255,106,0,.16);
+}
+
+.official-line {
+    display: block;
+
+    margin-top: 25px;
+
+    color: white;
+    font-size: clamp(14px, 1.4vw, 20px);
+    letter-spacing: 5px;
+    font-weight: 800;
+
+    opacity: 0;
+    transform: translateY(25px);
+
+    animation: fadeUp .7s ease forwards;
+    animation-delay: .85s;
+}
+
+.hero-description {
+    max-width: 570px;
+    margin-top: 27px;
+
+    color: #a7a7a7;
+    line-height: 1.7;
+    font-size: 16px;
+
+    opacity: 0;
+    transform: translateY(25px);
+
+    animation: fadeUp .7s ease forwards;
+    animation-delay: 1s;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 35px;
+
+    opacity: 0;
+    transform: translateY(25px);
+
+    animation: fadeUp .7s ease forwards;
+    animation-delay: 1.12s;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px 24px;
+
+    border-radius: 11px;
+
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .4px;
+
+    transition: .3s ease;
+}
+
+.btn-orange {
+    background: var(--orange);
+    color: white;
+    box-shadow: 0 10px 35px rgba(255,106,0,.2);
+}
+
+.btn-orange:hover {
+    background: var(--orange-light);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 45px rgba(255,106,0,.3);
+}
+
+.btn-dark {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.btn-dark:hover {
+    background: white;
+    color: black;
+    transform: translateY(-4px);
+}
+
+/* =========================
+   HERO IMAGE
+========================= */
+
+.hero-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    width: 55%;
+    height: 100%;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            #050505 0%,
+            rgba(5,5,5,.82) 13%,
+            rgba(5,5,5,.25) 55%,
+            rgba(5,5,5,.05) 100%
+        ),
+        url("https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1");
+
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0;
+
+    animation:
+        heroImageIn 1.4s ease forwards,
+        heroZoom 10s ease-in-out infinite alternate;
+
+    animation-delay: .15s, 1.5s;
+}
+
+.hero-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent 60%,
+            #050505 100%
+        );
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    padding: 110px 7%;
+}
+
+.section-head {
+    max-width: 750px;
+    margin-bottom: 50px;
+}
+
+.section-label {
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.section-description {
+    margin-top: 20px;
+    color: #909090;
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+/* =========================
+   MAIN PHOTO
+========================= */
+
+.main-photo {
+    width: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow: 0 35px 100px rgba(0,0,0,.45);
+}
+
+.main-photo img {
+    display: block;
+    width: 100%;
+    transition: transform .8s ease;
+}
+
+.main-photo:hover img {
+    transform: scale(1.025);
+}
+
+/* =========================
+   SYSTEM CARDS
+========================= */
+
+.system-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.system-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 19px;
+    overflow: hidden;
+
+    transition: .45s cubic-bezier(.2,.7,.2,1);
+}
+
+.system-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255,106,0,.4);
+    box-shadow: 0 25px 60px rgba(0,0,0,.4);
+}
+
+.system-image {
+    height: 260px;
+    overflow: hidden;
+}
+
+.system-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform .7s ease;
+}
+
+.system-card:hover .system-image img {
+    transform: scale(1.08);
+}
+
+.system-info {
+    padding: 25px;
+}
+
+.system-number {
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.system-info h3 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.system-info p {
+    color: #858585;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================
+   MORE SYSTEMS
+========================= */
+
+.more-block {
+    margin-top: 80px;
+
+    padding: 45px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,106,0,.11),
+            rgba(255,255,255,.025)
+        );
+
+    border: 1px solid rgba(255,106,0,.18);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.more-block::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+
+    background: var(--orange);
+    filter: blur(100px);
+    opacity: .1;
+
+    right: -100px;
+    top: -100px;
+}
+
+.more-block h3 {
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.more-block p {
+    position: relative;
+    color: #999;
+    line-height: 1.7;
+    max-width: 850px;
+}
+
+/* =========================
+   LAUNCHER
+========================= */
+
+.launcher {
+    padding: 100px 7%;
+
+    background:
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(255,106,0,.13),
+            transparent 35%
+        ),
+        #080808;
+}
+
+.launcher-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.launcher-content h2 {
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(35px, 4vw, 58px);
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.launcher-content p {
+    color: #929292;
+    line-height: 1.7;
+    margin: 25px 0 30px;
+    max-width: 620px;
+}
+
+.launcher-visual {
+    min-height: 330px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,106,0,.2),
+            rgba(255,255,255,.025)
+        );
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.launcher-visual::before {
+    content: "UFA";
+    position: absolute;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 180px;
+    font-weight: 900;
+
+    color: rgba(255,255,255,.025);
+}
+
+.launcher-logo {
+    position: relative;
+    z-index: 2;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+
+    color: var(--orange);
+
+    text-shadow: 0 0 40px rgba(255,106,0,.3);
+}
+
+/* =========================
+   SERVER
+========================= */
+
+.server-section {
+    padding: 110px 7%;
+}
+
+.server-card {
+    min-height: 360px;
+
+    padding: 55px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255,106,0,.14),
+            rgba(0,0,0,.8)
+        );
+
+    border: 1px solid rgba(255,106,0,.2);
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.server-card::before {
+    content: "UFA";
+    position: absolute;
+    right: -20px;
+    bottom: -80px;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 280px;
+    font-weight: 900;
+
+    color: rgba(255,255,255,.025);
+}
+
+.server-info {
+    position: relative;
+    z-index: 2;
+}
+
+.server-info h2 {
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: .95;
+}
+
+.server-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-top: 25px;
+
+    color: #aaa;
+    font-size: 14px;
+}
+
+.online-dot {
+    width: 9px;
+    height: 9px;
+    background: #39d353;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #39d353;
+    animation: pulse 1.5s infinite;
+}
+
+.server-online {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    padding: 35px 45px;
+
+    background: rgba(0,0,0,.35);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+
+    min-width: 220px;
+}
+
+.server-online strong {
+    display: block;
+
+    color: var(--orange);
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 65px;
+    line-height: 1;
+}
+
+.server-online span {
+    color: #888;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* =========================
+   SOCIAL
+========================= */
+
+.social-section {
+    padding: 100px 7%;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.social-card {
+    min-height: 220px;
+
+    padding: 35px;
+
+    border-radius: 22px;
+
+    display: flex;
+    align-items: flex-end;
+
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    transition: .4s ease;
+}
+
+.social-card:hover {
+    transform: translateY(-8px);
+}
+
+.social-card.telegram-card {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(38,165,228,.18),
+            rgba(0,0,0,.9)
+        );
+}
+
+.social-card.discord-card {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(88,101,242,.18),
+            rgba(0,0,0,.9)
+        );
+}
+
+.social-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.social-card-content h3 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.social-card-content p {
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.social-card-icon {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+
+    width: 65px;
+    height: 65px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 45px 7%;
+
+    border-top: 1px solid rgba(255,255,255,.07);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #666;
+    font-size: 13px;
+}
+
+.footer-logo {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    color: white;
+}
+
+.footer-logo span {
+    color: var(--orange);
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes headerIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroLineIn {
+    from {
+        opacity: 0;
+        transform: translateY(45px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroImageIn {
+    from {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes heroZoom {
+    from {
+        background-size: 100%;
+    }
+
+    to {
+        background-size: 106%;
+    }
+}
+
+@keyframes menuItemIn {
+    from {
+        opacity: 0;
+        transform: translateX(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes socialIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: .55;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .header {
+        padding: 0 20px;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 145px 22px 70px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: clamp(43px, 13vw, 75px);
+        letter-spacing: -2.5px;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 620px;
+        top: 100px;
+
+        opacity: .28;
+
+        background-image:
+            linear-gradient(
+                180deg,
+                #050505 0%,
+                rgba(5,5,5,.4) 50%,
+                #050505 100%
+            ),
+            url("https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1");
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .section {
+        padding: 75px 22px;
+    }
+
+    .section-title {
+        letter-spacing: -1.5px;
+    }
+
+    .system-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .system-image {
+        height: 240px;
+    }
+
+    .more-block {
+        margin-top: 45px;
+        padding: 30px;
+    }
+
+    .launcher {
+        padding: 75px 22px;
+    }
+
+    .launcher-box {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .launcher-visual {
+        min-height: 250px;
+    }
+
+    .server-section {
+        padding: 75px 22px;
+    }
+
+    .server-card {
+        padding: 35px 25px;
+        min-height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .server-online {
+        width: 100%;
+    }
+
+    .social-section {
+        padding: 75px 22px;
+    }
+
+    .social-grid {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        padding: 35px 22px;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .side-menu {
+        padding: 100px 20px 25px;
+    }
+
+    .hero-title {
+        font-size: 43px;
+    }
+
+    .official-line {
+        font-size: 11px;
+        letter-spacing: 3px;
+    }
+
+    .social-menu {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     FLOATING BACKGROUND LIGHTS
-========================================================= -->
-
-<div class="orange-light light-1"></div>
-<div class="orange-light light-2"></div>
-
-
-<!-- =========================================================
+<!-- =========================
      HEADER
-========================================================= -->
+========================= -->
 
-<header class="header" id="header">
+<header class="header">
 
-    <div class="header-inner">
+    <a href="#home" class="logo">
+        UFA <span>ROLE PLAY</span>
+    </a>
 
-        <a
-            href="#home"
-            class="brand"
-        >
-            UFA <span>ROLE PLAY</span>
-        </a>
-
-
-        <button
-            class="burger"
-            id="burger"
-            aria-label="Открыть меню"
-        >
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </button>
-
-    </div>
+    <button class="menu-button" id="menuButton" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
 </header>
 
+<!-- =========================
+     OVERLAY
+========================= -->
 
-<!-- =========================================================
-     MENU OVERLAY
-========================================================= -->
+<div class="menu-overlay" id="menuOverlay"></div>
 
-<div
-    class="menu-overlay"
-    id="menuOverlay"
-></div>
-
-
-<!-- =========================================================
+<!-- =========================
      SIDE MENU
-========================================================= -->
+========================= -->
 
-<aside
-    class="side-menu"
-    id="sideMenu"
->
+<aside class="side-menu" id="sideMenu">
 
-    <div class="menu-title">
-        Навигация
+    <div class="side-title">
+        НАВИГАЦИЯ
     </div>
-
 
     <nav class="menu-links">
 
-        <a
-            href="#home"
-            class="menu-link menu-close"
-        >
-            Главная
+        <a href="#home" class="menu-link">
+            <span>Главная</span>
+            <span class="menu-arrow">→</span>
         </a>
 
-        <a
-            href="#play"
-            class="menu-link menu-close"
-        >
-            Играть
+        <a href="#launcher" class="menu-link">
+            <span>Играть</span>
+            <span class="menu-arrow">→</span>
         </a>
 
         <a
@@ -2094,50 +1380,61 @@
             target="_blank"
             class="menu-link"
         >
-            Форум
+            <span>Форум</span>
+            <span class="menu-arrow">↗</span>
         </a>
 
     </nav>
 
+    <div class="menu-social-title">
+        МЫ В СОЦСЕТЯХ
+    </div>
 
-    <div class="menu-socials">
+    <div class="social-menu">
+
+        <!-- TELEGRAM -->
 
         <a
             href="https://t.me/+IiuEU9mHqbc0MWYx"
             target="_blank"
-            class="social-menu"
+            class="telegram"
         >
 
             <svg
+                class="social-icon"
                 viewBox="0 0 24 24"
-                width="19"
-                height="19"
-                fill="currentColor"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
             >
-                <path d="M21.8 4.2 18.7 19c-.2 1- .8 1.2-1.6.8l-4.4-3.2-2.1 2c-.2.2-.4.4-.8.4l.3-4.5 8.2-7.4c.4-.4-.1-.6-.6-.2L7.6 13.4 3.3 12c-.9-.3-.9-.9.2-1.3L20.3 4c.8-.3 1.6.2 1.5.2z"/>
+                <path
+                    d="M21.6 3.2L18.3 20.1C18.05 21.3 17.36 21.6 16.4 21.05L11.05 17.1L8.47 19.58C8.18 19.87 7.94 20.11 7.35 20.11L7.73 14.66L17.65 5.7C18.08 5.32 17.56 5.11 16.99 5.49L4.72 13.22L-0.56 11.57C-1.71 11.21 -1.73 10.42 -0.32 9.87L20.34 1.9C21.3 1.55 22.13 2.12 21.6 3.2Z"
+                    fill="currentColor"
+                    transform="translate(1 0)"
+                />
             </svg>
 
-            Telegram
+            <span class="social-name">TELEGRAM</span>
 
         </a>
 
+        <!-- DISCORD -->
 
         <a
             href="https://discord.gg/3aZEDUS37"
             target="_blank"
-            class="social-menu"
+            class="discord"
         >
 
             <svg
+                class="social-icon"
                 viewBox="0 0 24 24"
-                width="19"
-                height="19"
                 fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
             >
-                <path d="M19.5 5.2A16.7 16.7 0 0 0 15.4 4l-.5 1a15.3 15.3 0 0 0-5.8 0l-.5-1a16.7 16.7 0 0 0-4.1 1.2C1.9 9 1.2 12.7 1.5 16.4a16.7 16.7 0 0 0 5 2.5l1.2-1.6c-.7-.3-1.3-.7-1.9-1.1l.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4c-.6.4-1.2.8-1.9 1.1l1.2 1.6a16.7 16.7 0 0 0 5-2.5c.4-4.3-.7-8-3-11.2zM8.4 14.3c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2zm7.2 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2z"/>
+                <path d="M19.54 5.32A16.9 16.9 0 0 0 15.47 4l-.5 1.02a15.5 15.5 0 0 0-5.94 0L8.53 4a16.9 16.9 0 0 0-4.07 1.32C1.88 9.1 1.18 12.8 1.53 16.45a16.8 16.8 0 0 0 5.01 2.54l1.22-1.67a10.3 10.3 0 0 1-1.92-.91l.47-.36c3.7 1.72 7.72 1.72 11.38 0l.47.36c-.61.36-1.25.66-1.92.91l1.22 1.67a16.8 16.8 0 0 0 5.01-2.54c.41-4.23-.7-7.89-2.93-11.13ZM8.34 14.14c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Zm7.32 0c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Z"/>
             </svg>
 
-            Discord
+            <span class="social-name">DISCORD</span>
 
         </a>
 
@@ -2145,837 +1442,563 @@
 
 </aside>
 
-
-<!-- =========================================================
+<!-- =========================
      HERO
-========================================================= -->
+========================= -->
 
-<main id="home">
+<main>
 
-    <section class="hero">
+<section class="hero" id="home">
 
-        <!-- ГЛАВНОЕ ФОТО -->
+    <div class="hero-image"></div>
+
+    <div class="hero-content">
+
+        <h1 class="hero-title">
+
+            <span class="hero-line orange-line">
+                ИГРАЙ В
+            </span>
+
+            <span class="hero-line orange-line">
+                РОССИЮ
+            </span>
+
+            <span class="hero-line orange-line">
+                НА СВОЕМ
+            </span>
+
+            <span class="hero-line orange-line">
+                СМАРТФОНЕ
+            </span>
+
+            <span class="official-line">
+                ОФИЦИАЛЬНЫЙ САЙТ
+            </span>
+
+        </h1>
+
+        <p class="hero-description">
+            Погрузись в атмосферу настоящей России вместе с
+            UFA ROLE PLAY. Создавай свою историю, развивай персонажа,
+            работай, покупай автомобили и становись частью большого
+            игрового мира.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#launcher" class="btn btn-orange">
+                НАЧАТЬ ИГРАТЬ
+            </a>
+
+            <a href="#systems" class="btn btn-dark">
+                УЗНАТЬ БОЛЬШЕ
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     MAIN PROJECT PHOTO
+========================= -->
+
+<section class="section reveal">
+
+    <div class="main-photo">
+
         <img
-            class="hero-image"
             src="https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1"
             alt="UFA ROLE PLAY"
         >
 
+    </div>
 
-        <div class="hero-content">
+</section>
 
-            <div class="hero-small">
-                UFA ROLE PLAY
-            </div>
+<!-- =========================
+     SYSTEMS
+========================= -->
 
+<section class="section" id="systems">
 
-            <h1 class="hero-title">
+    <div class="section-head reveal">
 
-                <span class="orange">
-                    Играй в Россию
-                </span>
-
-                <br>
-
-                на своем смартфоне
-
-                <br>
-
-                <span class="black-word">
-                    | Официальный сайт
-                </span>
-
-            </h1>
-
-
-            <p class="hero-description">
-
-                Окунись в большой мир Role Play,
-                где каждый игрок самостоятельно
-                создаёт свою историю.
-
-            </p>
-
-
-            <div class="hero-buttons">
-
-                <a
-                    href="#play"
-                    class="button button-orange"
-                >
-                    НАЧАТЬ ИГРАТЬ
-                </a>
-
-
-                <a
-                    href="https://ufarp-forum.samp.date/index.php"
-                    target="_blank"
-                    class="button button-dark"
-                >
-                    ОТКРЫТЬ ФОРУМ
-                </a>
-
-            </div>
-
+        <div class="section-label">
+            ВОЗМОЖНОСТИ ПРОЕКТА
         </div>
 
-    </section>
+        <h2 class="section-title">
+            Почему нужно играть<br>
+            на UFA ROLE PLAY?
+        </h2>
 
+        <p class="section-description">
+            Здесь каждый игрок может создать собственную историю.
+            Развивай своего персонажа, знакомься с другими игроками,
+            приобретай имущество и просто получай удовольствие от игры.
+        </p>
 
-    <!-- =====================================================
-         MAIN PROJECT PHOTO
-    ====================================================== -->
+    </div>
 
-    <section class="main-photo-section">
+    <div class="system-grid">
 
-        <div class="main-photo reveal">
+        <!-- FAMILY -->
 
-            <img
-                src="https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1"
-                alt="UFA ROLE PLAY"
-            >
+        <article class="system-card reveal">
 
-            <div class="photo-caption">
-
-                UFA ROLE PLAY
-                <span>•</span>
-                ТВОЯ ИСТОРИЯ
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         WHY PLAY
-    ====================================================== -->
-
-    <section
-        class="why"
-        id="about"
-    >
-
-        <div class="container">
-
-
-            <div class="reveal">
-
-                <div class="section-label">
-                    UFA ROLE PLAY
-                </div>
-
-
-                <h2 class="section-title">
-
-                    Почему нужно играть
-                    <span>на UFA ROLE PLAY?</span>
-
-                </h2>
-
-
-                <p class="section-description">
-
-                    UFA ROLE PLAY — это игровой мир,
-                    в котором можно найти работу,
-                    создать семью, приобрести автомобиль,
-                    вступить в организацию и просто
-                    наслаждаться атмосферой проекта.
-
-                </p>
-
-            </div>
-
-
-            <!-- =================================================
-                 SYSTEM CARDS
-            ================================================== -->
-
-            <div class="systems-grid">
-
-
-                <!-- СЕМЬИ -->
-
-                <article class="system-card reveal">
-
-                    <div class="system-image">
-
-                        <img
-                            src="https://www.dropbox.com/scl/fi/fjx0g8ut2fiw5hgyvymoc/Photo-28.09.2026-19-02-27.jpg?rlkey=55qf1p6o78lfmeo72wyhrnu52&st=hy3gossf&raw=1"
-                            alt="Система семей"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-
-                    <div class="system-info">
-
-                        <div class="system-number">
-                            СИСТЕМА 01
-                        </div>
-
-                        <h3>
-                            Система семей
-                        </h3>
-
-                        <p>
-
-                            Создавай свою семью,
-                            общайся вместе с друзьями
-                            и развивайте собственную историю
-                            внутри игрового мира.
-
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- АВТОСАЛОН -->
-
-                <article class="system-card reveal">
-
-                    <div class="system-image">
-
-                        <img
-                            src="https://www.dropbox.com/scl/fi/3b0apd859rakwcf11w7t8/Photo-28.09.2026-19-02-27-2.jpg?rlkey=r3ji4ynrd06wmvygpsicno57w&st=5ylli2uk&raw=1"
-                            alt="Автосалон"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-
-                    <div class="system-info">
-
-                        <div class="system-number">
-                            СИСТЕМА 02
-                        </div>
-
-                        <h3>
-                            Большой автосалон
-                        </h3>
-
-                        <p>
-
-                            Выбирай автомобиль
-                            под свой стиль игры.
-                            В автосалоне тебя ждёт
-                            большой выбор транспорта.
-
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- МУЗЫКА -->
-
-                <article class="system-card reveal">
-
-                    <div class="system-image">
-
-                        <img
-                            src="https://www.dropbox.com/scl/fi/23ohet6a7xm9i9n9fvvm9/Photo-28.09.2026-19-02-27-2-1.jpg?rlkey=5frb789gh8m877n8qahaxcjz7&st=j701e8l7&raw=1"
-                            alt="Система музыки"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-
-                    <div class="system-info">
-
-                        <div class="system-number">
-                            СИСТЕМА 03
-                        </div>
-
-                        <h3>
-                            Музыкальная система
-                        </h3>
-
-                        <p>
-
-                            Просто катайся по городу,
-                            включай любимую музыку
-                            и наслаждайся атмосферой
-                            своего персонажа.
-
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-
-            <!-- =================================================
-                 MORE
-            ================================================== -->
-
-            <div class="more-systems reveal">
-
-                <h3>
-
-                    И это только
-                    <span>начало.</span>
-
-                </h3>
-
-
-                <p>
-
-                    На проекте есть множество других
-                    возможностей: организации, работы,
-                    система доната, транспорт, имущество
-                    и другие игровые механики.
-                    UFA ROLE PLAY постоянно развивается,
-                    поэтому впереди игроков ждёт ещё
-                    больше возможностей.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         LAUNCHER
-    ====================================================== -->
-
-    <section
-        class="launcher"
-        id="play"
-    >
-
-        <div class="container">
-
-            <div class="launcher-box reveal">
-
-                <h2 class="launcher-title">
-
-                    Скачай наш лаунчер
-                    <br>
-
-                    и <span>начни играть!</span>
-
-                </h2>
-
-
-                <p class="launcher-text">
-
-                    Играть на нашем проекте очень просто.
-                    Достаточно скачать наш лаунчер,
-                    который сам установит все необходимые
-                    компоненты игры. Останется только
-                    ввести свой игровой ник и нажать
-                    на кнопку «Играть».
-
-                </p>
-
-
-                <div class="launcher-button">
-
-                    <a
-                        href="https://disk.yandex.ru/d/26Q8s3AYIy9G-g"
-                        target="_blank"
-                        class="button button-orange"
-                    >
-
-                        ⬇
-                        &nbsp;
-                        НАЧАТЬ ИГРАТЬ
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         SERVER
-    ====================================================== -->
-
-    <section class="servers">
-
-        <div class="container">
-
-
-            <div class="server-head reveal">
-
-                <div class="section-label">
-                    ИГРОВЫЕ СЕРВЕРЫ
-                </div>
-
-
-                <h2 class="section-title">
-
-                    Выбери свой
-                    <span>сервер</span>
-
-                </h2>
-
-
-                <p class="section-description">
-
-                    Подключайся к серверу UFA ROLE PLAY
-                    и начинай свою историю прямо сейчас.
-
-                </p>
-
-            </div>
-
-
-            <!-- =================================================
-                 SERVER CARD
-            ================================================== -->
-
-            <div class="server-card reveal">
-
-
-                <!-- ФОНОВОЕ ФОТО С ПРОЕКТА -->
+            <div class="system-image">
 
                 <img
-                    class="server-bg"
-                    src="https://www.dropbox.com/scl/fi/ycnlytu2adzuf3ag374s6/Photo-28.09.2026-19-00-11.jpg?rlkey=i46vzh10tyyfk2crv39smqta2&st=e63eunzd&raw=1"
-                    alt="UFA ROLE PLAY сервер"
                     loading="lazy"
+                    src="https://www.dropbox.com/scl/fi/fjx0g8ut2fiw5hgyvymoc/Photo-28.09.2026-19-02-27.jpg?rlkey=55qf1p6o78lfmeo72wyhrnu52&st=hy3gossf&raw=1"
+                    alt="Система семей"
                 >
 
-
-                <div class="server-content">
-
-
-                    <div class="server-left">
-
-                        <div class="server-tag">
-                            ONLINE
-                        </div>
-
-
-                        <h3 class="server-name">
-
-                            UFA
-                            <span>ROLE PLAY</span>
-
-                        </h3>
-
-
-                        <div class="server-ip">
-
-                            Сервер:
-                            <strong>
-                                RED
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="server-right">
-
-                        <div class="online-box">
-
-                            <div class="online-label">
-                                Общий онлайн
-                            </div>
-
-
-                            <div class="online-number">
-
-                                20
-                                <span>/ 1000</span>
-
-                            </div>
-
-
-                            <div class="online-status">
-                                ● Сервер работает
-                            </div>
-
-                        </div>
-
-
-                        <a
-                            href="https://disk.yandex.ru/d/26Q8s3AYIy9G-g"
-                            target="_blank"
-                            class="button button-orange"
-                        >
-                            ИГРАТЬ
-                        </a>
-
-                    </div>
-
-                </div>
-
             </div>
 
-        </div>
+            <div class="system-info">
 
-    </section>
-
-
-    <!-- =====================================================
-         SOCIAL
-    ====================================================== -->
-
-    <section class="social">
-
-        <div class="container">
-
-            <div class="social-box reveal">
-
-
-                <div class="section-label">
-                    COMMUNITY
+                <div class="system-number">
+                    01 / FAMILY
                 </div>
 
-
-                <h2>
-
-                    Следи за
-                    <span>новостями</span>
-
-                </h2>
-
+                <h3>
+                    Система семей
+                </h3>
 
                 <p>
-
-                    Присоединяйся к нашему сообществу,
-                    чтобы первым узнавать об обновлениях,
-                    событиях и новостях UFA ROLE PLAY.
-
+                    Создавай свою семью, объединяйся с друзьями
+                    и развивай собственное игровое сообщество.
                 </p>
 
+            </div>
 
-                <div class="social-buttons">
+        </article>
 
+        <!-- CARS -->
 
-                    <!-- TELEGRAM -->
+        <article class="system-card reveal">
 
-                    <a
-                        href="https://t.me/+IiuEU9mHqbc0MWYx"
-                        target="_blank"
-                        class="social-button telegram"
-                    >
+            <div class="system-image">
 
-                        <svg
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M21.8 4.2 18.7 19c-.2 1-.8 1.2-1.6.8l-4.4-3.2-2.1 2c-.2.2-.4.4-.8.4l.3-4.5 8.2-7.4c.4-.4-.1-.6-.6-.2L7.6 13.4 3.3 12c-.9-.3-.9-.9.2-1.3L20.3 4c.8-.3 1.6.2 1.5.2z"/>
-                        </svg>
+                <img
+                    loading="lazy"
+                    src="https://www.dropbox.com/scl/fi/3b0apd859rakwcf11w7t8/Photo-28.09.2026-19-02-27-2.jpg?rlkey=r3ji4ynrd06wmvygpsicno57w&st=5ylli2uk&raw=1"
+                    alt="Автосалон UFA ROLE PLAY"
+                >
 
-                        TELEGRAM
+            </div>
 
-                    </a>
+            <div class="system-info">
 
-
-                    <!-- DISCORD -->
-
-                    <a
-                        href="https://discord.gg/3aZEDUS37"
-                        target="_blank"
-                        class="social-button discord"
-                    >
-
-                        <svg
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M19.5 5.2A16.7 16.7 0 0 0 15.4 4l-.5 1a15.3 15.3 0 0 0-5.8 0l-.5-1a16.7 16.7 0 0 0-4.1 1.2C1.9 9 1.2 12.7 1.5 16.4a16.7 16.7 0 0 0 5 2.5l1.2-1.6c-.7-.3-1.3-.7-1.9-1.1l.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4c-.6.4-1.2.8-1.9 1.1l1.2 1.6a16.7 16.7 0 0 0 5-2.5c.4-4.3-.7-8-3-11.2zM8.4 14.3c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2zm7.2 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 .9 2 2.2-.9 2.2-2 2.2z"/>
-                        </svg>
-
-                        DISCORD
-
-                    </a>
-
+                <div class="system-number">
+                    02 / CARS
                 </div>
+
+                <h3>
+                    Большой выбор автомобилей
+                </h3>
+
+                <p>
+                    Выбирай автомобили в большом автосалоне,
+                    покупай понравившуюся машину и отправляйся
+                    навстречу новым приключениям.
+                </p>
+
+            </div>
+
+        </article>
+
+        <!-- MUSIC -->
+
+        <article class="system-card reveal">
+
+            <div class="system-image">
+
+                <img
+                    loading="lazy"
+                    src="https://www.dropbox.com/scl/fi/23ohet6a7xm9i9n9fvvm9/Photo-28.09.2026-19-02-27-2-1.jpg?rlkey=5frb789gh8m877n8qahaxcjz7&st=j701e8l7&raw=1"
+                    alt="Музыкальная система"
+                >
+
+            </div>
+
+            <div class="system-info">
+
+                <div class="system-number">
+                    03 / MUSIC
+                </div>
+
+                <h3>
+                    Система музыки
+                </h3>
+
+                <p>
+                    Просто катайся по городу, включай любимую музыку
+                    и наслаждайся атмосферой игрового мира.
+                </p>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    <!-- MORE -->
+
+    <div class="more-block reveal">
+
+        <h3>
+            И это далеко не всё.
+        </h3>
+
+        <p>
+            На UFA ROLE PLAY тебя ждёт гораздо больше возможностей:
+            система доната, организации, разнообразные работы,
+            развитие персонажа, транспорт, экономика и множество
+            других игровых механик. Проект постоянно развивается,
+            поэтому впереди тебя ждёт ещё больше контента.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     LAUNCHER
+========================= -->
+
+<section class="launcher" id="launcher">
+
+    <div class="launcher-box">
+
+        <div class="launcher-content reveal-left">
+
+            <div class="section-label">
+                НАЧНИ ИГРАТЬ
+            </div>
+
+            <h2>
+                Скачай наш лаунчер
+                и начни играть!
+            </h2>
+
+            <p>
+                Играть на нашем проекте очень просто.
+                Достаточно скачать наш лаунчер, который сам
+                установит все необходимые компоненты игры.
+                Останется только ввести свой игровой ник
+                и нажать на кнопку "Играть".
+            </p>
+
+            <a
+                href="https://disk.yandex.ru/d/26Q8s3AYIy9G-g"
+                target="_blank"
+                class="btn btn-orange"
+            >
+                НАЧАТЬ ИГРАТЬ
+            </a>
+
+        </div>
+
+        <div class="launcher-visual reveal-right">
+
+            <div class="launcher-logo">
+                UFA RP
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     SERVER
+========================= -->
+
+<section class="server-section">
+
+    <div class="server-card reveal">
+
+        <div class="server-info">
+
+            <div class="section-label">
+                UFA ROLE PLAY
+            </div>
+
+            <h2>
+                Выбери<br>
+                свой сервер
+            </h2>
+
+            <div class="server-status">
+
+                <span class="online-dot"></span>
+
+                <span>
+                    Сервер онлайн
+                </span>
 
             </div>
 
         </div>
 
-    </section>
+        <div class="server-online">
 
-</main>
+            <strong>
+                20
+            </strong>
 
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer>
-
-    <div class="footer-inner">
-
-
-        <div class="footer-brand">
-
-            UFA
-            <span>ROLE PLAY</span>
+            <span>
+                ИГРОКОВ ОНЛАЙН
+            </span>
 
         </div>
 
+    </div>
 
-        <div class="footer-copy">
+</section>
 
-            © 2026 UFA ROLE PLAY.
-            Все права защищены.
+<!-- =========================
+     SOCIAL
+========================= -->
 
+<section class="social-section">
+
+    <div class="section-head reveal">
+
+        <div class="section-label">
+            БУДЬ В КУРСЕ
         </div>
 
+        <h2 class="section-title">
+            Следи за новостями
+        </h2>
+
+        <p class="section-description">
+            Подписывайся на наши социальные сети,
+            чтобы не пропускать обновления проекта,
+            новости, объявления и важные события.
+        </p>
+
+    </div>
+
+    <div class="social-grid">
+
+        <!-- TELEGRAM -->
 
         <a
-            href="#home"
-            class="footer-top"
+            href="https://t.me/+IiuEU9mHqbc0MWYx"
+            target="_blank"
+            class="social-card telegram-card reveal-left"
         >
 
-            НАВЕРХ ↑
+            <svg
+                class="social-card-icon"
+                viewBox="0 0 24 24"
+                fill="#26a5e4"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M21.6 3.2L18.3 20.1C18.05 21.3 17.36 21.6 16.4 21.05L11.05 17.1L8.47 19.58C8.18 19.87 7.94 20.11 7.35 20.11L7.73 14.66L17.65 5.7C18.08 5.32 17.56 5.11 16.99 5.49L4.72 13.22L-.56 11.57C-1.71 11.21-1.73 10.42-.32 9.87L20.34 1.9C21.3 1.55 22.13 2.12 21.6 3.2Z" transform="translate(1 0)"/>
+            </svg>
+
+            <div class="social-card-content">
+
+                <h3>
+                    Telegram
+                </h3>
+
+                <p>
+                    Новости и обновления проекта
+                </p>
+
+                <span class="btn btn-dark">
+                    ПОДПИСАТЬСЯ →
+                </span>
+
+            </div>
+
+        </a>
+
+        <!-- DISCORD -->
+
+        <a
+            href="https://discord.gg/3aZEDUS37"
+            target="_blank"
+            class="social-card discord-card reveal-right"
+        >
+
+            <svg
+                class="social-card-icon"
+                viewBox="0 0 24 24"
+                fill="#5865F2"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M19.54 5.32A16.9 16.9 0 0 0 15.47 4l-.5 1.02a15.5 15.5 0 0 0-5.94 0L8.53 4a16.9 16.9 0 0 0-4.07 1.32C1.88 9.1 1.18 12.8 1.53 16.45a16.8 16.8 0 0 0 5.01 2.54l1.22-1.67a10.3 10.3 0 0 1-1.92-.91l.47-.36c3.7 1.72 7.72 1.72 11.38 0l.47.36c-.61.36-1.25.66-1.92.91l1.22 1.67a16.8 16.8 0 0 0 5.01-2.54c.41-4.23-.7-7.89-2.93-11.13ZM8.34 14.14c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Zm7.32 0c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Z"/>
+            </svg>
+
+            <div class="social-card-content">
+
+                <h3>
+                    Discord
+                </h3>
+
+                <p>
+                    Общение с игроками проекта
+                </p>
+
+                <span class="btn btn-dark">
+                    ВОЙТИ В DISCORD →
+                </span>
+
+            </div>
 
         </a>
 
     </div>
 
+</section>
+
+</main>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        UFA <span>ROLE PLAY</span>
+    </div>
+
+    <div>
+        © 2026 UFA ROLE PLAY. Все права защищены.
+    </div>
+
 </footer>
-
-
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
 
 <script>
 
+/* =========================
+   MENU
+========================= */
 
-    /* =====================================================
-       HEADER SCROLL
-    ===================================================== */
+const menuButton = document.getElementById("menuButton");
+const sideMenu = document.getElementById("sideMenu");
+const menuOverlay = document.getElementById("menuOverlay");
 
-    const header =
-        document.getElementById("header");
+function openMenu() {
+    menuButton.classList.add("active");
+    sideMenu.classList.add("active");
+    menuOverlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
 
+function closeMenu() {
+    menuButton.classList.remove("active");
+    sideMenu.classList.remove("active");
+    menuOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+}
 
-    window.addEventListener(
-        "scroll",
-        function() {
+menuButton.addEventListener("click", () => {
 
-            if (window.scrollY > 50) {
-
-                header.classList.add(
-                    "scrolled"
-                );
-
-            } else {
-
-                header.classList.remove(
-                    "scrolled"
-                );
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       MENU
-    ===================================================== */
-
-    const burger =
-        document.getElementById("burger");
-
-    const sideMenu =
-        document.getElementById("sideMenu");
-
-    const menuOverlay =
-        document.getElementById("menuOverlay");
-
-    const menuClose =
-        document.querySelectorAll(".menu-close");
-
-
-    function openMenu() {
-
-        burger.classList.add("active");
-
-        sideMenu.classList.add("active");
-
-        menuOverlay.classList.add("active");
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
+    if (sideMenu.classList.contains("active")) {
+        closeMenu();
+    } else {
+        openMenu();
     }
 
+});
 
-    function closeMenu() {
+menuOverlay.addEventListener("click", closeMenu);
 
-        burger.classList.remove("active");
+document.querySelectorAll(".menu-link").forEach(link => {
 
-        sideMenu.classList.remove("active");
+    link.addEventListener("click", () => {
+        closeMenu();
+    });
 
-        menuOverlay.classList.remove("active");
+});
 
-        document.body.classList.remove(
-            "menu-open"
-        );
+/* =========================
+   SCROLL ANIMATION
+========================= */
 
-    }
+const revealElements = document.querySelectorAll(
+    ".reveal, .reveal-left, .reveal-right"
+);
 
+const observer = new IntersectionObserver(
 
-    burger.addEventListener(
-        "click",
-        function() {
+    (entries) => {
 
-            if (
-                sideMenu.classList.contains(
-                    "active"
-                )
-            ) {
+        entries.forEach(entry => {
 
-                closeMenu();
+            if (entry.isIntersecting) {
 
-            } else {
+                entry.target.classList.add("active");
 
-                openMenu();
-
-            }
-
-        }
-    );
-
-
-    menuOverlay.addEventListener(
-        "click",
-        closeMenu
-    );
-
-
-    menuClose.forEach(
-        function(link) {
-
-            link.addEventListener(
-                "click",
-                closeMenu
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       ESC CLOSE
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Escape") {
-
-                closeMenu();
+                observer.unobserve(entry.target);
 
             }
-
-        }
-    );
-
-
-    /* =====================================================
-       SCROLL REVEAL
-    ===================================================== */
-
-    const revealElements =
-        document.querySelectorAll(
-            ".reveal"
-        );
-
-
-    const observer =
-        new IntersectionObserver(
-            function(entries) {
-
-                entries.forEach(
-                    function(entry) {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "active"
-                            );
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.12
-            }
-        );
-
-
-    revealElements.forEach(
-        function(element) {
-
-            observer.observe(
-                element
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       IMAGE FALLBACK
-       Если Dropbox не отдаст картинку,
-       показываем красивый тёмный фон
-    ===================================================== */
-
-    document
-        .querySelectorAll("img")
-        .forEach(function(img) {
-
-            img.addEventListener(
-                "error",
-                function() {
-
-                    this.style.display =
-                        "none";
-
-                    this.parentElement.style
-                        .background =
-                        "linear-gradient(135deg,#151515,#080808)";
-
-                }
-            );
 
         });
 
+    },
+
+    {
+        threshold: 0.12
+    }
+
+);
+
+revealElements.forEach(element => {
+    observer.observe(element);
+});
+
+/* =========================
+   ESCAPE CLOSE MENU
+========================= */
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape") {
+        closeMenu();
+    }
+
+});
+
+/* =========================
+   SMOOTH ANCHOR
+========================= */
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+    anchor.addEventListener("click", function(event) {
+
+        const target = document.querySelector(
+            this.getAttribute("href")
+        );
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
+
+});
 
 </script>
-
 
 </body>
 </html>
